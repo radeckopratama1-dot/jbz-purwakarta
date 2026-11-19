@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OprecStatusUpdatedMail;
 use App\Models\Applicant;
 use App\Models\Banner;
 use App\Models\BoardMember;
@@ -9,6 +10,8 @@ use App\Models\Division;
 use App\Models\Post;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -268,7 +271,26 @@ class AdminController extends Controller
         ]);
 
         $applicant->update($data);
-        return back()->with('success', 'Status seleksi pendaftar ' . $applicant->full_name . ' diperbarui!');
+        $applicant->loadMissing(['firstChoiceDivision', 'secondChoiceDivision']);
+
+        $emailSent = false;
+        if (in_array($applicant->status, ['Seleksi Wawancara', 'Diterima', 'Belum Lolos'])) {
+            try {
+                Mail::to($applicant->email)->send(new OprecStatusUpdatedMail($applicant));
+                $emailSent = true;
+            } catch (\Throwable $e) {
+                Log::error('Gagal kirim email Oprec: ' . $e->getMessage());
+            }
+        }
+
+        $message = 'Status seleksi pendaftar ' . $applicant->full_name . ' berhasil diperbarui';
+        if ($emailSent) {
+            $message .= ' dan email notifikasi resmi telah dikirim ke ' . $applicant->email . '!';
+        } else {
+            $message .= '!';
+        }
+
+        return back()->with('success', $message);
     }
 
     public function destroyApplicant(Applicant $applicant)

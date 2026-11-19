@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OprecRegisteredMail;
 use App\Models\Applicant;
 use App\Models\Banner;
 use App\Models\BoardMember;
@@ -9,6 +10,8 @@ use App\Models\Division;
 use App\Models\Post;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class PublicController extends Controller
@@ -87,6 +90,13 @@ class PublicController extends Controller
         $data['status'] = 'Menunggu Verifikasi';
 
         $applicant = Applicant::create($data);
+        $applicant->load(['firstChoiceDivision', 'secondChoiceDivision']);
+
+        try {
+            Mail::to($applicant->email)->send(new OprecRegisteredMail($applicant));
+        } catch (\Throwable $e) {
+            Log::error('Gagal kirim email Oprec: ' . $e->getMessage());
+        }
 
         return redirect('/#oprec')->with(
             'oprec_success',

@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'jbz' => [
+        'wa_interview_group' => env('JBZ_WA_INTERVIEW_GROUP', ''),
+        'wa_member_group' => env('JBZ_WA_MEMBER_GROUP', ''),
+    ],
+
 ];
