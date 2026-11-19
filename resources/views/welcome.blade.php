@@ -49,7 +49,7 @@
     </div>
 
     <!-- Navigation Bar (Clean Editorial, Tanpa Teks Ganda di Samping Wordmark) -->
-    <header class="sticky top-0 z-50 bg-paper/95 backdrop-blur border-b border-stone-200">
+    <header class="sticky top-0 z-50 bg-paper/95 backdrop-blur border-b border-stone-200/80">
         <div class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between gap-6">
             <a href="#beranda" class="h-14 overflow-hidden flex items-center shrink-0">
                 <img src="{{ asset('images/logo/logo-jbz-purwakarta.png') }}"
@@ -62,30 +62,28 @@
                 <a href="#program" class="hover:text-ink transition">Program Aksi</a>
                 <a href="#publikasi" class="hover:text-ink transition">Ruang Media PDD</a>
                 <a href="#kabinet" class="hover:text-ink transition">Struktur Kabinet</a>
-                <a href="{{ route('oprec.index') }}" class="hover:text-ink transition">Open Recruitment</a>
             </nav>
 
             <div class="hidden lg:flex items-center">
-                <a href="{{ route('oprec.index') }}" class="px-6 py-2.5 bg-ink text-white text-xs font-bold tracking-wider uppercase hover:bg-jbz-charcoal transition">
+                <a href="{{ route('oprec.index') }}" class="px-6 py-2.5 bg-ink text-white text-xs font-bold tracking-wider uppercase rounded-full hover:bg-jbz-charcoal hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
                     Bergabung
                 </a>
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button type="button" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')" class="lg:hidden p-2 border border-stone-300 text-ink" aria-label="Menu Navigasi">
+            <button type="button" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')" class="lg:hidden p-2 border border-stone-300 rounded-xl text-ink hover:bg-stone-100 transition" aria-label="Menu Navigasi">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
         </div>
 
         <!-- Mobile Drawer -->
-        <div id="mobile-nav" class="hidden lg:hidden bg-paper border-t border-stone-200 px-6 py-5 space-y-3 text-sm font-semibold text-jbz-charcoal">
-            <a href="#misi" class="block py-1 hover:text-ink">Misi & Bidang</a>
-            <a href="#program" class="block py-1 hover:text-ink">Program Aksi</a>
-            <a href="#publikasi" class="block py-1 hover:text-ink">Ruang Media PDD</a>
-            <a href="#kabinet" class="block py-1 hover:text-ink">Struktur Kabinet</a>
-            <a href="{{ route('oprec.index') }}" class="block py-1 hover:text-ink">Open Recruitment</a>
-            <div class="pt-3 border-t border-stone-200">
-                <a href="{{ route('oprec.index') }}" class="block w-full text-center py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider">Bergabung</a>
+        <div id="mobile-nav" class="hidden lg:hidden bg-paper border-t border-stone-200/80 px-6 py-5 space-y-3 text-sm font-semibold text-jbz-charcoal">
+            <a href="#misi" class="block py-1 hover:text-ink transition">Misi & Bidang</a>
+            <a href="#program" class="block py-1 hover:text-ink transition">Program Aksi</a>
+            <a href="#publikasi" class="block py-1 hover:text-ink transition">Ruang Media PDD</a>
+            <a href="#kabinet" class="block py-1 hover:text-ink transition">Struktur Kabinet</a>
+            <div class="pt-3 border-t border-stone-200/80">
+                <a href="{{ route('oprec.index') }}" class="block w-full text-center py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-jbz-charcoal transition-all duration-200">Bergabung</a>
             </div>
         </div>
     </header>
@@ -119,16 +117,13 @@
                     </p>
 
                     <div class="flex flex-wrap items-center gap-4 pt-2">
-                        <a href="{{ $primaryBanner->button_url ?? '#program' }}" class="px-7 py-3.5 bg-ink text-white text-xs font-bold uppercase tracking-[0.14em] hover:bg-jbz-charcoal transition">
-                            {{ $primaryBanner->button_text ?? 'Lihat Program Aksi' }}
-                        </a>
-                        <a href="{{ route('oprec.index') }}" class="px-7 py-3.5 border border-ink text-ink text-xs font-bold uppercase tracking-[0.14em] hover:bg-ink hover:text-white transition">
-                            Daftar Relawan
+                        <a href="{{ $primaryBanner->button_url ?? '#program' }}" class="px-7 py-3.5 bg-ink text-white text-xs font-bold uppercase tracking-[0.14em] rounded-full hover:bg-jbz-charcoal hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+                            {{ $primaryBanner->button_text ?? 'Lihat Program' }}
                         </a>
                     </div>
 
                     <!-- Minimalist Institutional Proof Bar -->
-                    <div class="grid grid-cols-3 gap-6 pt-8 border-t border-stone-200">
+                    <div class="grid grid-cols-3 gap-6 pt-8 border-t border-stone-200/80">
                         <div>
                             <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink">2020</p>
                             <p class="text-[11px] uppercase tracking-wider text-jbz-charcoal mt-1">Berdiri di Jabar</p>
@@ -146,15 +141,15 @@
 
                 <!-- Right Editorial Banner Frame (Dynamic from CRUD Banners) -->
                 <div class="lg:col-span-6">
-                    <div class="relative border border-stone-300 bg-white p-2.5">
+                    <div class="relative border border-stone-200/80 bg-white p-3 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] transition-all duration-300">
                         @if($primaryBanner && $primaryBanner->image_path)
-                            <div class="aspect-[4/3] w-full overflow-hidden bg-stone-100">
+                            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-stone-100">
                                 <img src="{{ asset('storage/' . $primaryBanner->image_path) }}"
                                      alt="{{ $primaryBanner->title }}"
                                      class="w-full h-full object-cover">
                             </div>
                         @else
-                            <div class="aspect-[4/3] w-full bg-stone-100 flex flex-col items-center justify-center p-8 text-center border border-dashed border-stone-300">
+                            <div class="aspect-[4/3] w-full bg-stone-100 rounded-xl flex flex-col items-center justify-center p-8 text-center border border-dashed border-stone-300">
                                 <p class="font-serif text-xl text-ink">Dokumentasi Aksi Lapangan</p>
                                 <p class="text-xs text-jbz-charcoal mt-2 max-w-xs leading-relaxed">
                                     Potret kebersamaan dan aksi kepemudaan Jabar Bergerak Zillenial Kabupaten Purwakarta.
@@ -163,8 +158,8 @@
                         @endif
 
                         <!-- Caption Strip ala Editorial -->
-                        <div class="pt-3 px-1 flex items-center justify-between text-[11px] text-jbz-charcoal">
-                            <span class="font-semibold uppercase tracking-wider">Semboyan: Kami Muda Siap Aksi</span>
+                        <div class="pt-3 px-1.5 flex items-center justify-between text-[11px] text-jbz-charcoal">
+                            <span class="font-semibold uppercase tracking-wider">Kami Muda Siap Aksi</span>
                             <span class="font-medium text-stone-400">Dokumentasi Bidang Media / PDD</span>
                         </div>
                     </div>
@@ -173,8 +168,8 @@
                     @if($banners->count() > 1)
                         <div class="grid grid-cols-3 gap-3 mt-3">
                             @foreach($banners->skip(1)->take(3) as $subBanner)
-                                <div class="border border-stone-200 bg-white p-1.5">
-                                    <div class="aspect-[16/10] overflow-hidden bg-stone-100">
+                                <div class="border border-stone-200/80 bg-white p-2 rounded-xl shadow-[0_2px_8px_rgba(28,28,26,0.03)] hover:shadow-[0_6px_16px_rgba(28,28,26,0.06)] transition-all duration-200">
+                                    <div class="aspect-[16/10] overflow-hidden rounded-lg bg-stone-100">
                                         <img src="{{ asset('storage/' . $subBanner->image_path) }}"
                                              alt="{{ $subBanner->title }}"
                                              class="w-full h-full object-cover">
@@ -214,7 +209,7 @@
                         <div class="space-y-4">
                             <div class="flex items-center justify-between">
                                 <span class="text-xs font-bold tracking-widest text-stone-400">0{{ $index + 1 }}</span>
-                                <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 border border-stone-200 text-jbz-charcoal group-hover:border-jbz-amber group-hover:text-ink transition">
+                                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-stone-200/80 bg-stone-50 text-jbz-charcoal group-hover:border-jbz-amber group-hover:text-ink transition">
                                     {{ $division->short_code ?? 'DIV' }}
                                 </span>
                             </div>
@@ -225,7 +220,7 @@
                                 {{ $division->description }}
                             </p>
                         </div>
-                        <a href="#kabinet" class="text-[11px] font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-amber hover:text-jbz-charcoal">
+                        <a href="#kabinet" class="text-[11px] font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-amber hover:text-jbz-charcoal transition">
                             Lihat Pengurus
                         </a>
                     </div>
@@ -237,9 +232,9 @@
     <!-- ================================================================== -->
     <!-- 03. ETALASE PROGRAM & JEJAK AKSI (Adaptasi Aktivitas Bakti)        -->
     <!-- ================================================================== -->
-    <section id="program" class="py-20 bg-paper border-b border-stone-200">
+    <section id="program" class="py-20 bg-paper border-b border-stone-200/80">
         <div class="max-w-7xl mx-auto px-5 sm:px-8 space-y-12">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200 pb-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200/80 pb-8">
                 <div>
                     <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-green">02 / Aktivitas & Jejak Aksi</p>
                     <h2 class="font-serif text-3xl sm:text-4xl text-ink mt-2">
@@ -253,22 +248,22 @@
 
             <!-- Tombol Filter Interaktif Kategori Program -->
             <div class="flex flex-wrap items-center gap-2">
-                <button type="button" onclick="filterPrograms('semua')" class="program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-ink text-white border border-ink transition" data-filter="semua">Semua</button>
-                <button type="button" onclick="filterPrograms('Lingkungan')" class="program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition" data-filter="Lingkungan">Lingkungan</button>
-                <button type="button" onclick="filterPrograms('Kemanusiaan')" class="program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition" data-filter="Kemanusiaan">Kemanusiaan</button>
-                <button type="button" onclick="filterPrograms('Pendidikan')" class="program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition" data-filter="Pendidikan">Pendidikan</button>
-                <button type="button" onclick="filterPrograms('Media & Kreatif')" class="program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition" data-filter="Media & Kreatif">Media & Kreatif</button>
+                <button type="button" onclick="filterPrograms('semua')" class="program-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-ink text-white border border-ink transition-all duration-200" data-filter="semua">Semua</button>
+                <button type="button" onclick="filterPrograms('Lingkungan')" class="program-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-white text-jbz-charcoal border border-stone-300 hover:border-ink hover:text-ink transition-all duration-200" data-filter="Lingkungan">Lingkungan</button>
+                <button type="button" onclick="filterPrograms('Kemanusiaan')" class="program-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-white text-jbz-charcoal border border-stone-300 hover:border-ink hover:text-ink transition-all duration-200" data-filter="Kemanusiaan">Kemanusiaan</button>
+                <button type="button" onclick="filterPrograms('Pendidikan')" class="program-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-white text-jbz-charcoal border border-stone-300 hover:border-ink hover:text-ink transition-all duration-200" data-filter="Pendidikan">Pendidikan</button>
+                <button type="button" onclick="filterPrograms('Media & Kreatif')" class="program-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-white text-jbz-charcoal border border-stone-300 hover:border-ink hover:text-ink transition-all duration-200" data-filter="Media & Kreatif">Media & Kreatif</button>
             </div>
 
             <div id="programs-grid" class="grid md:grid-cols-2 gap-10">
                 @foreach($programs as $program)
-                    <article class="program-card group border border-stone-200 bg-white flex flex-col justify-between" data-pillar="{{ $program->pillar }}">
+                    <article class="program-card group border border-stone-200/80 bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between" data-pillar="{{ $program->pillar }}">
                         <div>
-                            <a href="{{ route('program.show', $program->slug) }}" class="block aspect-[16/10] w-full overflow-hidden bg-stone-100 border-b border-stone-200">
+                            <a href="{{ route('program.show', $program->slug) }}" class="block aspect-[16/10] w-full overflow-hidden bg-stone-100 border-b border-stone-200/80">
                                 @if($program->cover_image)
                                     <img src="{{ asset('storage/' . $program->cover_image) }}"
                                          alt="{{ $program->title }}"
-                                         class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-500">
+                                         class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500">
                                 @else
                                     <div class="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-stone-100">
                                         <span class="text-[11px] uppercase tracking-widest text-stone-400 font-bold">{{ $program->pillar }}</span>
@@ -279,7 +274,7 @@
 
                             <div class="p-7 space-y-3">
                                 <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-wider">
-                                    <span class="text-jbz-green">{{ $program->pillar }}</span>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-jbz-green/15 text-jbz-green border border-jbz-green/30">{{ $program->pillar }}</span>
                                     <span class="text-stone-400">{{ $program->event_date ? $program->event_date->translatedFormat('d F Y') : $program->status }}</span>
                                 </div>
 
@@ -307,7 +302,7 @@
 
                         <div class="px-7 py-4 border-t border-stone-100 flex items-center justify-between text-xs">
                             <span class="font-semibold text-stone-500">{{ $program->division->name ?? 'JBZ Kabupaten Purwakarta' }}</span>
-                            <span class="px-2.5 py-1 bg-stone-100 text-ink font-bold text-[10px] uppercase tracking-wider">{{ $program->status }}</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 font-bold text-[10px] uppercase tracking-wider border border-stone-200/80">{{ $program->status }}</span>
                         </div>
                     </article>
                 @endforeach
@@ -318,9 +313,9 @@
     <!-- ================================================================== -->
     <!-- 04. RUANG MEDIA & GALERI DOKUMENTASI PDD                           -->
     <!-- ================================================================== -->
-    <section id="publikasi" class="py-20 bg-white border-b border-stone-200">
+    <section id="publikasi" class="py-20 bg-white border-b border-stone-200/80">
         <div class="max-w-7xl mx-auto px-5 sm:px-8 space-y-12">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200 pb-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200/80 pb-8">
                 <div>
                     <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-cyan">03 / Ruang Media & Galeri PDD</p>
                     <h2 class="font-serif text-3xl sm:text-4xl text-ink mt-2">
@@ -334,13 +329,13 @@
 
             <div class="grid md:grid-cols-3 gap-8">
                 @foreach($posts as $post)
-                    <article class="flex flex-col justify-between border-b md:border-b-0 border-stone-200 pb-8 md:pb-0">
+                    <article class="group bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
                         <div class="space-y-4">
-                            <a href="{{ route('post.show', $post->slug) }}" class="block aspect-[4/3] w-full overflow-hidden bg-stone-100 border border-stone-200">
+                            <a href="{{ route('post.show', $post->slug) }}" class="block aspect-[4/3] w-full overflow-hidden bg-stone-100 border-b border-stone-200/80">
                                 @if($post->image_path)
                                     <img src="{{ asset('storage/' . $post->image_path) }}"
                                          alt="{{ $post->title }}"
-                                         class="w-full h-full object-cover hover:scale-[1.03] transition duration-500">
+                                         class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center p-6 text-center bg-stone-50">
                                         <span class="text-xs font-bold uppercase tracking-widest text-stone-400">{{ $post->type }}</span>
@@ -348,29 +343,31 @@
                                 @endif
                             </a>
 
-                            <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider">
-                                <span class="text-jbz-cyan">{{ $post->type }}</span>
-                                <span class="text-stone-400">{{ $post->published_at ? $post->published_at->translatedFormat('d M Y') : 'Terbaru' }}</span>
-                            </div>
+                            <div class="px-6 space-y-3">
+                                <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider">
+                                    <span class="px-2.5 py-0.5 rounded-full bg-jbz-cyan/15 text-jbz-cyan border border-jbz-cyan/30">{{ $post->type }}</span>
+                                    <span class="text-stone-400">{{ $post->published_at ? $post->published_at->translatedFormat('d M Y') : 'Terbaru' }}</span>
+                                </div>
 
-                            <h3 class="font-serif text-xl font-semibold text-ink leading-snug">
-                                <a href="{{ route('post.show', $post->slug) }}" class="hover:text-jbz-charcoal transition">
-                                    {{ $post->title }}
-                                </a>
-                            </h3>
+                                <h3 class="font-serif text-xl font-semibold text-ink leading-snug group-hover:text-jbz-charcoal transition">
+                                    <a href="{{ route('post.show', $post->slug) }}">
+                                        {{ $post->title }}
+                                    </a>
+                                </h3>
 
-                            <p class="text-sm text-jbz-charcoal leading-relaxed">
-                                {{ $post->excerpt }}
-                            </p>
+                                <p class="text-sm text-jbz-charcoal leading-relaxed line-clamp-3">
+                                    {{ $post->excerpt }}
+                                </p>
 
-                            <div class="pt-1">
-                                <a href="{{ route('post.show', $post->slug) }}" class="inline-block text-xs font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-cyan hover:text-jbz-charcoal transition">
-                                    Baca Selengkapnya &rarr;
-                                </a>
+                                <div class="pt-1">
+                                    <a href="{{ route('post.show', $post->slug) }}" class="inline-block text-xs font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-cyan hover:text-jbz-charcoal transition">
+                                        Baca Selengkapnya &rarr;
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
-                        <p class="text-[11px] font-semibold text-stone-500 mt-5 pt-3 border-t border-stone-100">
+                        <p class="text-[11px] font-semibold text-stone-500 mx-6 mb-5 mt-5 pt-3 border-t border-stone-100">
                             Oleh {{ $post->author_name }}
                         </p>
                     </article>
@@ -382,9 +379,9 @@
     <!-- ================================================================== -->
     <!-- 05. STRUKTUR PENGURUS KABINET                                      -->
     <!-- ================================================================== -->
-    <section id="kabinet" class="py-20 bg-paper border-b border-stone-200">
+    <section id="kabinet" class="py-20 bg-paper border-b border-stone-200/80">
         <div class="max-w-7xl mx-auto px-5 sm:px-8 space-y-12">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200 pb-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200/80 pb-8">
                 <div>
                     <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-amber">04 / Pengurus Kabinet</p>
                     <h2 class="font-serif text-3xl sm:text-4xl text-ink mt-2">
@@ -398,9 +395,9 @@
 
             <!-- Tombol Filter Interaktif Struktur Pengurus -->
             <div class="flex flex-wrap items-center gap-2">
-                <button type="button" onclick="filterMembers('semua')" class="member-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-ink text-white border border-ink transition" data-filter="semua">Semua Bidang</button>
+                <button type="button" onclick="filterMembers('semua')" class="member-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-ink text-white border border-ink transition-all duration-200" data-filter="semua">Semua Bidang</button>
                 @foreach($divisions as $div)
-                    <button type="button" onclick="filterMembers('{{ $div->id }}')" class="member-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition" data-filter="{{ $div->id }}">
+                    <button type="button" onclick="filterMembers('{{ $div->id }}')" class="member-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-white text-jbz-charcoal border border-stone-300 hover:border-ink hover:text-ink transition-all duration-200" data-filter="{{ $div->id }}">
                         {{ $div->short_code ?? $div->name }}
                     </button>
                 @endforeach
@@ -408,13 +405,13 @@
 
             <div id="members-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach($boardMembers as $member)
-                    <div class="member-card bg-white border border-stone-200 overflow-hidden flex flex-col justify-between" data-division-id="{{ $member->division_id }}">
+                    <div class="member-card group bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between" data-division-id="{{ $member->division_id }}">
                         <div>
-                            <div class="aspect-[4/4] w-full bg-stone-100 overflow-hidden border-b border-stone-200">
+                            <div class="aspect-[4/4] w-full bg-stone-100 overflow-hidden border-b border-stone-200/80">
                                 @if($member->photo_path)
                                     <img src="{{ asset('storage/' . $member->photo_path) }}"
                                          alt="{{ $member->full_name }}"
-                                         class="w-full h-full object-cover">
+                                         class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center bg-stone-100 text-jbz-charcoal font-serif text-3xl">
                                         {{ strtoupper(substr($member->full_name, 0, 2)) }}
@@ -465,9 +462,9 @@
         function filterPrograms(pillar) {
             document.querySelectorAll('.program-filter-btn').forEach(btn => {
                 if (btn.getAttribute('data-filter') === pillar) {
-                    btn.className = 'program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-ink text-white border border-ink transition';
+                    btn.className = 'program-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-ink text-white border border-ink transition-all duration-200';
                 } else {
-                    btn.className = 'program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition';
+                    btn.className = 'program-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-white text-jbz-charcoal border border-stone-300 hover:border-ink hover:text-ink transition-all duration-200';
                 }
             });
 
@@ -483,9 +480,9 @@
         function filterMembers(divisionId) {
             document.querySelectorAll('.member-filter-btn').forEach(btn => {
                 if (btn.getAttribute('data-filter') === String(divisionId)) {
-                    btn.className = 'member-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-ink text-white border border-ink transition';
+                    btn.className = 'member-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-ink text-white border border-ink transition-all duration-200';
                 } else {
-                    btn.className = 'member-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition';
+                    btn.className = 'member-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-white text-jbz-charcoal border border-stone-300 hover:border-ink hover:text-ink transition-all duration-200';
                 }
             });
 

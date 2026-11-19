@@ -50,7 +50,7 @@
     </div>
 
     <!-- Navigation Bar (Clean Editorial) -->
-    <header class="sticky top-0 z-50 bg-paper/95 backdrop-blur border-b border-stone-200">
+    <header class="sticky top-0 z-50 bg-paper/95 backdrop-blur border-b border-stone-200/80">
         <div class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between gap-6">
             <a href="{{ route('home') }}" class="h-14 overflow-hidden flex items-center shrink-0">
                 <img src="{{ asset('images/logo/logo-jbz-purwakarta.png') }}"
@@ -63,28 +63,29 @@
                 <a href="{{ route('home') }}#program" class="text-ink font-bold transition">Program Aksi</a>
                 <a href="{{ route('home') }}#publikasi" class="hover:text-ink transition">Ruang Media PDD</a>
                 <a href="{{ route('home') }}#kabinet" class="hover:text-ink transition">Struktur Kabinet</a>
-                <a href="{{ route('oprec.index') }}" class="hover:text-ink transition">Open Recruitment</a>
             </nav>
 
             <div class="hidden lg:flex items-center">
-                <a href="{{ route('oprec.index') }}" class="px-6 py-2.5 bg-ink text-white text-xs font-bold tracking-wider uppercase hover:bg-jbz-charcoal transition">
+                <a href="{{ route('oprec.index') }}" class="px-6 py-2.5 bg-ink text-white text-xs font-bold tracking-wider uppercase rounded-full hover:bg-jbz-charcoal hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
                     Bergabung
                 </a>
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button type="button" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')" class="lg:hidden p-2 border border-stone-300 text-ink" aria-label="Menu Navigasi">
+            <button type="button" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')" class="lg:hidden p-2 border border-stone-300 rounded-xl text-ink hover:bg-stone-100 transition" aria-label="Menu Navigasi">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
         </div>
 
         <!-- Mobile Menu Container -->
-        <div id="mobile-nav" class="hidden lg:hidden border-b border-stone-200 bg-white px-5 py-4 space-y-3 text-sm font-semibold">
+        <div id="mobile-nav" class="hidden lg:hidden border-b border-stone-200/80 bg-white px-5 py-4 space-y-3 text-sm font-semibold">
             <a href="{{ route('home') }}#misi" class="block py-1 hover:text-jbz-charcoal">Misi & Bidang</a>
             <a href="{{ route('home') }}#program" class="block py-1 text-ink font-bold">Program Aksi</a>
             <a href="{{ route('home') }}#publikasi" class="block py-1 hover:text-jbz-charcoal">Ruang Media PDD</a>
             <a href="{{ route('home') }}#kabinet" class="block py-1 hover:text-jbz-charcoal">Struktur Kabinet</a>
-            <a href="{{ route('oprec.index') }}" class="block py-1 text-jbz-amber font-bold">Open Recruitment</a>
+            <div class="pt-3 border-t border-stone-200/80">
+                <a href="{{ route('oprec.index') }}" class="block w-full text-center py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-jbz-charcoal transition-all duration-200">Bergabung</a>
+            </div>
         </div>
     </header>
 
@@ -102,10 +103,10 @@
             </nav>
 
             <!-- Metadata Header -->
-            <div class="space-y-4 border-b border-stone-200 pb-8">
+            <div class="space-y-4 border-b border-stone-200/80 pb-8">
                 <div class="flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-wider">
-                    <span class="px-3 py-1 bg-jbz-green text-white">{{ $program->pillar }}</span>
-                    <span class="px-3 py-1 bg-stone-100 text-ink border border-stone-200">{{ $program->status }}</span>
+                    <span class="px-3.5 py-1 bg-jbz-green/15 text-jbz-green border border-jbz-green/30 rounded-full font-bold text-xs">{{ $program->pillar }}</span>
+                    <span class="px-3.5 py-1 bg-stone-100 text-stone-700 border border-stone-200/80 rounded-full font-bold text-xs">{{ $program->status }}</span>
                     <span class="text-stone-500 font-semibold">{{ $program->division->name ?? 'JBZ Kabupaten Purwakarta' }}</span>
                 </div>
 
@@ -129,7 +130,7 @@
 
             <!-- Cover Image (Jika Ada) -->
             @if($program->cover_image)
-                <div class="aspect-[16/9] w-full overflow-hidden border border-stone-200 bg-stone-100">
+                <div class="aspect-[16/9] w-full overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100 shadow-[0_2px_12px_rgba(28,28,26,0.04)]">
                     <img src="{{ asset('storage/' . $program->cover_image) }}"
                          alt="{{ $program->title }}"
                          class="w-full h-full object-cover">
@@ -138,7 +139,7 @@
 
             <!-- Summary Highlight -->
             @if($program->summary)
-                <div class="border-l-4 border-jbz-green pl-5 py-2 bg-white border border-stone-200">
+                <div class="border-l-4 border-jbz-green pl-5 py-3 bg-white border border-stone-200/80 rounded-r-xl shadow-[0_2px_8px_rgba(28,28,26,0.02)]">
                     <p class="font-serif text-lg sm:text-xl text-ink italic leading-relaxed">
                         {{ $program->summary }}
                     </p>
@@ -151,11 +152,11 @@
             </div>
 
             <!-- Back & Share Section -->
-            <div class="pt-8 border-t border-stone-200 flex flex-wrap items-center justify-between gap-4">
-                <a href="{{ route('home') }}#program" class="px-5 py-2.5 border border-stone-300 text-ink text-xs font-bold uppercase tracking-wider hover:bg-stone-100 transition">
+            <div class="pt-8 border-t border-stone-200/80 flex flex-wrap items-center justify-between gap-4">
+                <a href="{{ route('home') }}#program" class="px-6 py-2.5 border border-stone-300 text-ink text-xs font-bold uppercase tracking-wider rounded-full hover:bg-stone-100 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
                     &larr; Kembali ke Daftar Program
                 </a>
-                <a href="{{ route('oprec.index') }}" class="px-6 py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider hover:bg-jbz-charcoal transition">
+                <a href="{{ route('oprec.index') }}" class="px-6 py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-jbz-charcoal hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
                     Gabung Jadi Relawan Aksi
                 </a>
             </div>
@@ -164,7 +165,7 @@
 
         <!-- Bagian Program Lainnya -->
         @if($otherPrograms->count() > 0)
-            <section class="max-w-7xl mx-auto px-5 sm:px-8 mt-20 pt-16 border-t border-stone-200 space-y-8">
+            <section class="max-w-7xl mx-auto px-5 sm:px-8 mt-20 pt-16 border-t border-stone-200/80 space-y-8">
                 <div>
                     <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-green">Jelajahi Aksi</p>
                     <h2 class="font-serif text-2xl sm:text-3xl text-ink mt-1">Program Aksi Lainnya</h2>
@@ -172,13 +173,13 @@
 
                 <div class="grid md:grid-cols-3 gap-8">
                     @foreach($otherPrograms as $other)
-                        <article class="border border-stone-200 bg-white flex flex-col justify-between">
+                        <article class="group border border-stone-200/80 bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
                             <div>
-                                <a href="{{ route('program.show', $other->slug) }}" class="block aspect-[16/10] w-full overflow-hidden bg-stone-100 border-b border-stone-200">
+                                <a href="{{ route('program.show', $other->slug) }}" class="block aspect-[16/10] w-full overflow-hidden bg-stone-100 border-b border-stone-200/80">
                                     @if($other->cover_image)
                                         <img src="{{ asset('storage/' . $other->cover_image) }}"
                                              alt="{{ $other->title }}"
-                                             class="w-full h-full object-cover hover:scale-[1.02] transition duration-500">
+                                             class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500">
                                     @else
                                         <div class="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-stone-50">
                                             <span class="text-[10px] uppercase tracking-widest text-stone-400 font-bold">{{ $other->pillar }}</span>
@@ -189,11 +190,11 @@
 
                                 <div class="p-6 space-y-2">
                                     <div class="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
-                                        <span class="text-jbz-green">{{ $other->pillar }}</span>
+                                        <span class="px-2.5 py-0.5 rounded-full bg-jbz-green/15 text-jbz-green border border-jbz-green/30">{{ $other->pillar }}</span>
                                         <span class="text-stone-400">{{ $other->event_date ? $other->event_date->translatedFormat('d M Y') : $other->status }}</span>
                                     </div>
-                                    <h3 class="font-serif text-lg font-semibold text-ink leading-snug">
-                                        <a href="{{ route('program.show', $other->slug) }}" class="hover:text-jbz-charcoal transition">
+                                    <h3 class="font-serif text-lg font-semibold text-ink leading-snug group-hover:text-jbz-charcoal transition">
+                                        <a href="{{ route('program.show', $other->slug) }}">
                                             {{ $other->title }}
                                         </a>
                                     </h3>
@@ -207,7 +208,7 @@
                                 <a href="{{ route('program.show', $other->slug) }}" class="text-ink font-bold uppercase tracking-wider text-[11px] underline underline-offset-4 decoration-jbz-green hover:text-jbz-charcoal transition">
                                     Lihat Detail &rarr;
                                 </a>
-                                <span class="px-2 py-0.5 bg-stone-100 text-ink text-[10px] font-bold uppercase">{{ $other->status }}</span>
+                                <span class="px-2.5 py-0.5 bg-stone-100 text-stone-700 text-[10px] font-bold uppercase rounded-full border border-stone-200/80">{{ $other->status }}</span>
                             </div>
                         </article>
                     @endforeach

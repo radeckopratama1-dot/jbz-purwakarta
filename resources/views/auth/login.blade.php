@@ -42,7 +42,7 @@
     </div>
 
     <!-- Header Sederhana -->
-    <header class="py-6 px-5 sm:px-8 border-b border-stone-200 bg-white/70 backdrop-blur">
+    <header class="py-6 px-5 sm:px-8 border-b border-stone-200/80 bg-white/70 backdrop-blur">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
             <a href="{{ route('home') }}" class="inline-block">
                 <img src="{{ asset('images/logo/logo-jbz-purwakarta.png') }}"
@@ -61,14 +61,14 @@
 
             <!-- Pesan Sukses / Flash -->
             @if(session('success'))
-                <div class="mb-6 p-4 border-l-4 border-jbz-green bg-white border border-stone-200 text-xs font-semibold text-ink">
+                <div class="mb-6 p-4 border-l-4 border-jbz-green bg-white border border-stone-200/80 rounded-xl shadow-sm text-xs font-semibold text-ink">
                     {{ session('success') }}
                 </div>
             @endif
 
             <!-- Pesan Error Validasi Global -->
             @if(isset($errors) && $errors->any())
-                <div class="mb-6 p-4 border-l-4 border-rose-600 bg-white border border-stone-200 text-xs text-rose-700 space-y-1">
+                <div class="mb-6 p-4 border-l-4 border-rose-600 bg-white border border-stone-200/80 rounded-xl shadow-sm text-xs text-rose-700 space-y-1">
                     <p class="font-bold uppercase tracking-wider">Gagal Masuk:</p>
                     <ul class="list-disc list-inside">
                         @foreach($errors->all() as $error)
@@ -79,7 +79,7 @@
             @endif
 
             <!-- Kartu Login Presisi -->
-            <div class="bg-white border border-stone-300 p-8 sm:p-10 shadow-sm">
+            <div class="bg-white border border-stone-200/80 rounded-2xl p-8 sm:p-10 shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] transition-all duration-300">
                 <div class="mb-8">
                     <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-jbz-charcoal mb-2">Panel Administrasi</p>
                     <h1 class="font-serif text-3xl font-semibold text-ink leading-tight">Masuk ke Panel CMS</h1>
@@ -102,7 +102,7 @@
                                required
                                autofocus
                                autocomplete="email"
-                               class="w-full px-3.5 py-2.5 bg-paper border border-stone-300 text-sm text-ink focus:outline-none focus:border-ink focus:bg-white transition"
+                               class="w-full px-4 py-2.5 bg-paper border border-stone-300 rounded-xl text-sm text-ink focus:outline-none focus:ring-2 focus:ring-jbz-amber/30 focus:border-jbz-amber focus:bg-white transition"
                                placeholder="admin@jbzpurwakarta.org">
                     </div>
 
@@ -117,7 +117,7 @@
                                name="password"
                                required
                                autocomplete="current-password"
-                               class="w-full px-3.5 py-2.5 bg-paper border border-stone-300 text-sm text-ink focus:outline-none focus:border-ink focus:bg-white transition"
+                               class="w-full px-4 py-2.5 bg-paper border border-stone-300 rounded-xl text-sm text-ink focus:outline-none focus:ring-2 focus:ring-jbz-amber/30 focus:border-jbz-amber focus:bg-white transition"
                                placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
                     </div>
 
@@ -126,14 +126,14 @@
                             <input type="checkbox"
                                    name="remember"
                                    id="remember"
-                                   class="h-4 w-4 rounded-none border-stone-300 text-ink focus:ring-0 focus:ring-offset-0">
+                                   class="h-4 w-4 rounded border-stone-300 text-ink focus:ring-2 focus:ring-jbz-amber/30">
                             <span class="text-xs text-jbz-charcoal font-medium">Ingat saya</span>
                         </label>
                     </div>
 
                     <div class="pt-2">
                         <button type="submit"
-                                class="w-full py-3 bg-ink text-white text-xs font-bold uppercase tracking-[0.16em] hover:bg-jbz-charcoal transition text-center">
+                                class="w-full py-3.5 bg-ink text-white text-xs font-bold uppercase tracking-[0.16em] rounded-full hover:bg-jbz-charcoal hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 text-center">
                             Masuk ke Panel CMS
                         </button>
                     </div>
@@ -151,7 +151,7 @@
     </main>
 
     <!-- Footer Editorial -->
-    <footer class="py-6 border-t border-stone-200 bg-white text-center text-xs text-stone-500">
+    <footer class="py-6 border-t border-stone-200/80 bg-white text-center text-xs text-stone-500">
         <p>&copy; {{ date('Y') }} Jabar Bergerak Zillenial Kabupaten Purwakarta &mdash; Bidang Media & Produksi Visual.</p>
     </footer>
 
