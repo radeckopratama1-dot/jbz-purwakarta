@@ -41,6 +41,30 @@ class PublicController extends Controller
         ));
     }
 
+    public function showProgram(string $slug)
+    {
+        $program = Program::with('division')->where('slug', $slug)->firstOrFail();
+        $otherPrograms = Program::with('division')
+            ->where('id', '!=', $program->id)
+            ->latest('event_date')
+            ->take(3)
+            ->get();
+
+        return view('program-detail', compact('program', 'otherPrograms'));
+    }
+
+    public function showPost(string $slug)
+    {
+        $post = Post::with('division')->where('slug', $slug)->firstOrFail();
+        $otherPosts = Post::with('division')
+            ->where('id', '!=', $post->id)
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        return view('post-detail', compact('post', 'otherPosts'));
+    }
+
     public function storeApplicant(Request $request)
     {
         $data = $request->validate([

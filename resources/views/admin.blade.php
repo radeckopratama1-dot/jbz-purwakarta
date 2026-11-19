@@ -54,9 +54,24 @@
                     <p class="text-[11px] text-jbz-charcoal">Panel Manajemen Media, Kabinet, Program & Oprec</p>
                 </div>
             </div>
-            <a href="{{ route('home') }}" class="px-5 py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider hover:bg-jbz-charcoal transition">
-                Lihat Website Publik
-            </a>
+            <div class="flex items-center gap-3">
+                @auth
+                    <div class="hidden md:flex flex-col text-right">
+                        <span class="text-xs font-bold text-ink">{{ auth()->user()->name }}</span>
+                        <span class="text-[10px] text-stone-500 font-mono">{{ auth()->user()->email }}</span>
+                    </div>
+                    <span class="hidden md:inline-block h-6 w-px bg-stone-300"></span>
+                @endauth
+                <a href="{{ route('home') }}" class="px-4 py-2 border border-stone-300 text-ink text-xs font-bold uppercase tracking-wider hover:bg-stone-100 transition">
+                    Lihat Website Publik
+                </a>
+                <form method="POST" action="{{ route('logout') }}" class="inline">
+                    @csrf
+                    <button type="submit" class="px-4 py-2 bg-ink text-white text-xs font-bold uppercase tracking-wider hover:bg-rose-700 transition">
+                        Keluar
+                    </button>
+                </form>
+            </div>
         </div>
     </header>
 

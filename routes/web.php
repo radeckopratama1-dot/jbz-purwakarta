@@ -1,15 +1,26 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
-// 1. Rute Halaman Publik & Pendaftaran Oprec
+// 1. Rute Halaman Publik, Detail Program & Publikasi, serta Pendaftaran Oprec
 Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('/program/{slug}', [PublicController::class, 'showProgram'])->name('program.show');
+Route::get('/publikasi/{slug}', [PublicController::class, 'showPost'])->name('post.show');
 Route::post('/oprec/daftar', [PublicController::class, 'storeApplicant'])->name('oprec.store');
 
-// 2. Rute Dashboard Admin CMS (CRUD Banner, Pengurus, Program, Berita/Galeri, Oprec)
-Route::prefix('admin')->name('admin.')->group(function () {
+// 2. Rute Autentikasi Admin (Login & Logout)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+});
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+// 3. Rute Dashboard Admin CMS (Dilindungi middleware auth)
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
 
     // CRUD Banner

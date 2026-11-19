@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jabar Bergerak Zillenial Kabupaten Purwakarta — Kami Muda Siap Aksi</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo/logo-jbz-purwakarta.png') }}">
+    <meta name="description" content="Website Resmi Jabar Bergerak Zillenial (JBZ) Kabupaten Purwakarta. Wadah aksi kepemudaan, sosial, pendidikan, kemanusiaan, dan lingkungan di Purwakarta.">
+    <meta property="og:title" content="Jabar Bergerak Zillenial Kabupaten Purwakarta — Kami Muda Siap Aksi">
+    <meta property="og:description" content="Website Resmi Jabar Bergerak Zillenial (JBZ) Kabupaten Purwakarta. Wadah aksi kepemudaan, sosial, pendidikan, kemanusiaan, dan lingkungan di Purwakarta.">
+    <meta property="og:image" content="{{ asset('images/logo/logo-jbz-purwakarta.png') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,10 +51,10 @@
     <!-- Navigation Bar (Clean Editorial, Tanpa Teks Ganda di Samping Wordmark) -->
     <header class="sticky top-0 z-50 bg-paper/95 backdrop-blur border-b border-stone-200">
         <div class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between gap-6">
-            <a href="#beranda" class="flex items-center shrink-0">
+            <a href="#beranda" class="h-14 overflow-hidden flex items-center shrink-0">
                 <img src="{{ asset('images/logo/logo-jbz-purwakarta.png') }}"
                      alt="Jabar Bergerak Zillenial Kabupaten Purwakarta"
-                     class="h-11 sm:h-12 w-auto object-contain">
+                     class="h-36 sm:h-40 w-auto object-contain">
             </a>
 
             <nav class="hidden lg:flex items-center gap-8 text-[13px] font-semibold tracking-wide text-jbz-charcoal">
@@ -58,12 +65,9 @@
                 <a href="#oprec" class="hover:text-ink transition">Open Recruitment</a>
             </nav>
 
-            <div class="hidden lg:flex items-center gap-3">
-                <a href="#oprec" class="px-5 py-2.5 bg-ink text-white text-xs font-bold tracking-wider uppercase hover:bg-jbz-charcoal transition">
+            <div class="hidden lg:flex items-center">
+                <a href="#oprec" class="px-6 py-2.5 bg-ink text-white text-xs font-bold tracking-wider uppercase hover:bg-jbz-charcoal transition">
                     Bergabung
-                </a>
-                <a href="{{ route('admin.dashboard') }}" class="px-4 py-2.5 border border-stone-300 text-jbz-charcoal text-xs font-bold tracking-wider uppercase hover:border-ink hover:text-ink transition">
-                    CMS
                 </a>
             </div>
 
@@ -80,9 +84,8 @@
             <a href="#publikasi" class="block py-1 hover:text-ink">Ruang Media PDD</a>
             <a href="#kabinet" class="block py-1 hover:text-ink">Struktur Kabinet</a>
             <a href="#oprec" class="block py-1 hover:text-ink">Open Recruitment</a>
-            <div class="pt-3 border-t border-stone-200 flex gap-3">
-                <a href="#oprec" class="flex-1 text-center py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider">Bergabung</a>
-                <a href="{{ route('admin.dashboard') }}" class="px-4 py-2.5 border border-stone-300 text-xs font-bold uppercase tracking-wider">CMS</a>
+            <div class="pt-3 border-t border-stone-200">
+                <a href="#oprec" class="block w-full text-center py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider">Bergabung</a>
             </div>
         </div>
     </header>
@@ -152,13 +155,10 @@
                             </div>
                         @else
                             <div class="aspect-[4/3] w-full bg-stone-100 flex flex-col items-center justify-center p-8 text-center border border-dashed border-stone-300">
-                                <p class="font-serif text-xl text-ink">Frame Foto Banner Utama</p>
+                                <p class="font-serif text-xl text-ink">Dokumentasi Aksi Lapangan</p>
                                 <p class="text-xs text-jbz-charcoal mt-2 max-w-xs leading-relaxed">
-                                    Unggah foto dokumentasi aksi terbaik JBZ Purwakarta melalui menu <strong>CRUD Banner Beranda</strong> di halaman CMS agar tampil otomatis di sini.
+                                    Potret kebersamaan dan aksi kepemudaan Jabar Bergerak Zillenial Kabupaten Purwakarta.
                                 </p>
-                                <a href="{{ route('admin.dashboard') }}" class="mt-4 px-4 py-2 border border-ink text-[11px] font-bold uppercase tracking-wider text-ink hover:bg-ink hover:text-white transition">
-                                    Upload Banner di CMS
-                                </a>
                             </div>
                         @endif
 
@@ -247,15 +247,24 @@
                     </h2>
                 </div>
                 <p class="text-sm text-jbz-charcoal max-w-md">
-                    Seluruh program di bawah ini dikelola secara dinamis melalui Panel CMS beserta dokumentasi foto lapangan.
+                    Dokumentasi program kerja kepemudaan, sosial, pendidikan, kemanusiaan, dan lingkungan di Kabupaten Purwakarta.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-10">
+            <!-- Tombol Filter Interaktif Kategori Program -->
+            <div class="flex flex-wrap items-center gap-2">
+                <button type="button" onclick="filterPrograms('semua')" class="program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-ink text-white border border-ink transition" data-filter="semua">Semua</button>
+                <button type="button" onclick="filterPrograms('Lingkungan')" class="program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition" data-filter="Lingkungan">Lingkungan</button>
+                <button type="button" onclick="filterPrograms('Kemanusiaan')" class="program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition" data-filter="Kemanusiaan">Kemanusiaan</button>
+                <button type="button" onclick="filterPrograms('Pendidikan')" class="program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition" data-filter="Pendidikan">Pendidikan</button>
+                <button type="button" onclick="filterPrograms('Media & Kreatif')" class="program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition" data-filter="Media & Kreatif">Media & Kreatif</button>
+            </div>
+
+            <div id="programs-grid" class="grid md:grid-cols-2 gap-10">
                 @foreach($programs as $program)
-                    <article class="group border border-stone-200 bg-white flex flex-col justify-between">
+                    <article class="program-card group border border-stone-200 bg-white flex flex-col justify-between" data-pillar="{{ $program->pillar }}">
                         <div>
-                            <div class="aspect-[16/10] w-full overflow-hidden bg-stone-100 border-b border-stone-200">
+                            <a href="{{ route('program.show', $program->slug) }}" class="block aspect-[16/10] w-full overflow-hidden bg-stone-100 border-b border-stone-200">
                                 @if($program->cover_image)
                                     <img src="{{ asset('storage/' . $program->cover_image) }}"
                                          alt="{{ $program->title }}"
@@ -266,7 +275,7 @@
                                         <p class="font-serif text-lg text-jbz-charcoal mt-1">{{ $program->title }}</p>
                                     </div>
                                 @endif
-                            </div>
+                            </a>
 
                             <div class="p-7 space-y-3">
                                 <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-wider">
@@ -275,7 +284,9 @@
                                 </div>
 
                                 <h3 class="font-serif text-2xl font-semibold text-ink leading-snug group-hover:text-jbz-charcoal transition">
-                                    {{ $program->title }}
+                                    <a href="{{ route('program.show', $program->slug) }}">
+                                        {{ $program->title }}
+                                    </a>
                                 </h3>
 
                                 <p class="text-xs font-semibold text-stone-500">
@@ -285,6 +296,12 @@
                                 <p class="text-sm text-jbz-charcoal leading-relaxed pt-1">
                                     {{ $program->summary }}
                                 </p>
+
+                                <div class="pt-2">
+                                    <a href="{{ route('program.show', $program->slug) }}" class="inline-block text-xs font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-green hover:text-jbz-charcoal transition">
+                                        Lihat Detail Program &rarr;
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -310,16 +327,16 @@
                         Berita Kegiatan & Arsip Dokumentasi Visual
                     </h2>
                 </div>
-                <a href="{{ route('admin.dashboard') }}" class="text-xs font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-cyan">
-                    Tambah Dokumentasi via CMS
-                </a>
+                <p class="text-sm text-jbz-charcoal max-w-md">
+                    Rilis pers resmi, liputan kegiatan langsung, dan galeri arsip dokumentasi visual JBZ Kabupaten Purwakarta.
+                </p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
                 @foreach($posts as $post)
                     <article class="flex flex-col justify-between border-b md:border-b-0 border-stone-200 pb-8 md:pb-0">
                         <div class="space-y-4">
-                            <div class="aspect-[4/3] w-full overflow-hidden bg-stone-100 border border-stone-200">
+                            <a href="{{ route('post.show', $post->slug) }}" class="block aspect-[4/3] w-full overflow-hidden bg-stone-100 border border-stone-200">
                                 @if($post->image_path)
                                     <img src="{{ asset('storage/' . $post->image_path) }}"
                                          alt="{{ $post->title }}"
@@ -329,7 +346,7 @@
                                         <span class="text-xs font-bold uppercase tracking-widest text-stone-400">{{ $post->type }}</span>
                                     </div>
                                 @endif
-                            </div>
+                            </a>
 
                             <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider">
                                 <span class="text-jbz-cyan">{{ $post->type }}</span>
@@ -337,12 +354,20 @@
                             </div>
 
                             <h3 class="font-serif text-xl font-semibold text-ink leading-snug">
-                                {{ $post->title }}
+                                <a href="{{ route('post.show', $post->slug) }}" class="hover:text-jbz-charcoal transition">
+                                    {{ $post->title }}
+                                </a>
                             </h3>
 
                             <p class="text-sm text-jbz-charcoal leading-relaxed">
                                 {{ $post->excerpt }}
                             </p>
+
+                            <div class="pt-1">
+                                <a href="{{ route('post.show', $post->slug) }}" class="inline-block text-xs font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-cyan hover:text-jbz-charcoal transition">
+                                    Baca Selengkapnya &rarr;
+                                </a>
+                            </div>
                         </div>
 
                         <p class="text-[11px] font-semibold text-stone-500 mt-5 pt-3 border-t border-stone-100">
@@ -367,13 +392,23 @@
                     </h2>
                 </div>
                 <p class="text-sm text-jbz-charcoal max-w-md">
-                    Direktori pengurus aktif JBZ Kabupaten Purwakarta periode 2025/2026. Foto dan jabatan dapat diperbarui sewaktu-waktu melalui CMS.
+                    Direktori pengurus aktif Jabar Bergerak Zillenial Kabupaten Purwakarta periode 2025/2026.
                 </p>
             </div>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Tombol Filter Interaktif Struktur Pengurus -->
+            <div class="flex flex-wrap items-center gap-2">
+                <button type="button" onclick="filterMembers('semua')" class="member-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-ink text-white border border-ink transition" data-filter="semua">Semua Bidang</button>
+                @foreach($divisions as $div)
+                    <button type="button" onclick="filterMembers('{{ $div->id }}')" class="member-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition" data-filter="{{ $div->id }}">
+                        {{ $div->short_code ?? $div->name }}
+                    </button>
+                @endforeach
+            </div>
+
+            <div id="members-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach($boardMembers as $member)
-                    <div class="bg-white border border-stone-200 overflow-hidden flex flex-col justify-between">
+                    <div class="member-card bg-white border border-stone-200 overflow-hidden flex flex-col justify-between" data-division-id="{{ $member->division_id }}">
                         <div>
                             <div class="aspect-[4/4] w-full bg-stone-100 overflow-hidden border-b border-stone-200">
                                 @if($member->photo_path)
@@ -477,7 +512,7 @@
                         @csrf
                         <div class="border-b border-stone-200 pb-4">
                             <h3 class="font-serif text-2xl font-semibold text-ink">Formulir Pendaftaran Anggota & Relawan</h3>
-                            <p class="text-jbz-charcoal mt-1">Isi data dengan benar. Berkas akan diverifikasi oleh pengurus melalui sistem CMS.</p>
+                            <p class="text-jbz-charcoal mt-1">Isi data dengan benar. Berkas akan diverifikasi oleh panitia dan pengurus JBZ Purwakarta.</p>
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-4">
@@ -563,6 +598,45 @@
             </div>
         </div>
     </footer>
+
+    <!-- Script Filter Interaktif Client-Side Program & Kabinet -->
+    <script>
+        function filterPrograms(pillar) {
+            document.querySelectorAll('.program-filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-filter') === pillar) {
+                    btn.className = 'program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-ink text-white border border-ink transition';
+                } else {
+                    btn.className = 'program-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition';
+                }
+            });
+
+            document.querySelectorAll('.program-card').forEach(card => {
+                if (pillar === 'semua' || card.getAttribute('data-pillar') === pillar) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function filterMembers(divisionId) {
+            document.querySelectorAll('.member-filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-filter') === String(divisionId)) {
+                    btn.className = 'member-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-ink text-white border border-ink transition';
+                } else {
+                    btn.className = 'member-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-jbz-charcoal border border-stone-300 hover:border-ink transition';
+                }
+            });
+
+            document.querySelectorAll('.member-card').forEach(card => {
+                if (divisionId === 'semua' || card.getAttribute('data-division-id') === String(divisionId)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
