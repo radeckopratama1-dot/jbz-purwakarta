@@ -46,8 +46,8 @@
         <div class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between gap-4">
             <div class="flex items-center gap-4">
                 <img src="{{ asset('images/logo/logo-jbz-purwakarta.png') }}"
-                     alt="JBZ Kabupaten Purwakarta"
-                     class="h-10 w-auto object-contain">
+                     alt="Jabar Bergerak Zillenial Kabupaten Purwakarta"
+                     class="h-36 sm:h-40 w-auto object-contain">
                 <span class="hidden sm:inline-block h-6 w-px bg-stone-300"></span>
                 <div class="hidden sm:block">
                     <p class="text-xs font-bold uppercase tracking-[0.16em] text-ink">Content Management System</p>
@@ -84,7 +84,7 @@
             </div>
         @endif
 
-        @if($errors->any())
+        @if(isset($errors) && $errors->any())
             <div class="p-4 border-l-4 border-rose-600 bg-white border border-stone-200 text-xs text-rose-700 space-y-1">
                 <p class="font-bold uppercase tracking-wider">Mohon periksa kembali inputan:</p>
                 <ul class="list-disc list-inside">
@@ -567,8 +567,77 @@
         <!-- ========================================================= -->
         <!-- TAB 5: VERIFIKASI PENDAFTAR OPREC                         -->
         <!-- ========================================================= -->
-        <section id="tab-oprec" class="tab-panel hidden bg-white p-6 border border-stone-200 space-y-4">
-            <h2 class="font-serif text-xl font-semibold text-ink border-b border-stone-200 pb-3">Daftar Pendaftar Open Recruitment</h2>
+        <section id="tab-oprec" class="tab-panel hidden bg-white p-6 border border-stone-200 space-y-6">
+            
+            <!-- Panel Pengaturan Jadwal & Status Pendaftaran (/OprecJBZ) -->
+            <div class="p-6 bg-paper border border-stone-300 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-200 pb-3">
+                    <div>
+                        <h3 class="font-serif text-lg font-semibold text-ink">Pengaturan Jadwal & Status Pendaftaran (/OprecJBZ)</h3>
+                        <p class="text-xs text-jbz-charcoal">Atur pembukaan pendaftaran, rentang tanggal, jadwal tahapan timeline, dan pesan penutupan.</p>
+                    </div>
+                    <a href="{{ route('oprec.index') }}" target="_blank" class="text-xs font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-cyan hover:text-jbz-charcoal">
+                        Lihat Halaman /OprecJBZ &rarr;
+                    </a>
+                </div>
+
+                <form action="{{ route('admin.oprec.settings.update') }}" method="POST" class="space-y-4 text-xs">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="sm:col-span-2">
+                            <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1">Nama Periode / Batch *</label>
+                            <input type="text" name="batch_name" value="{{ old('batch_name', $oprecSetting->batch_name) }}" required class="w-full px-3 py-2 border border-stone-300 bg-white">
+                        </div>
+                        <div>
+                            <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1">Status Pendaftaran *</label>
+                            <select name="is_open" class="w-full px-3 py-2 border border-stone-300 bg-white font-semibold">
+                                <option value="1" @selected(old('is_open', $oprecSetting->is_open ? '1' : '0') == '1')>Buka Pendaftaran (Aktif)</option>
+                                <option value="0" @selected(old('is_open', $oprecSetting->is_open ? '1' : '0') == '0')>Tutup Pendaftaran (Nonaktif)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1">Status Sistem Saat Ini</label>
+                            <div class="px-3 py-2 border border-stone-200 bg-stone-100 font-bold uppercase tracking-wider text-center {{ $oprecSetting->isCurrentlyOpen() ? 'text-jbz-green' : 'text-rose-600' }}">
+                                {{ $oprecSetting->isCurrentlyOpen() ? 'Dibuka' : 'Ditutup' }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1">Tanggal Mulai (Opsional)</label>
+                            <input type="date" name="start_date" value="{{ old('start_date', $oprecSetting->start_date ? $oprecSetting->start_date->format('Y-m-d') : '') }}" class="w-full px-3 py-2 border border-stone-300 bg-white">
+                        </div>
+                        <div>
+                            <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1">Tanggal Penutupan (Opsional)</label>
+                            <input type="date" name="end_date" value="{{ old('end_date', $oprecSetting->end_date ? $oprecSetting->end_date->format('Y-m-d') : '') }}" class="w-full px-3 py-2 border border-stone-300 bg-white">
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1">Timeline Tahapan Oprec (Format: Tanggal | Tahapan, satu per baris)</label>
+                            <textarea name="timeline_text" rows="4" class="w-full px-3 py-2 border border-stone-300 bg-white font-mono text-[11px] leading-relaxed" placeholder="1 - 14 Des 2026 | Pendaftaran Online&#10;15 - 18 Des 2026 | Seleksi Berkas">{{ old('timeline_text', $oprecSetting->timeline_text) }}</textarea>
+                            <p class="text-[10px] text-stone-500 mt-1">Gunakan tanda pipa (|) untuk memisahkan tanggal dan deskripsi tahapan.</p>
+                        </div>
+                        <div>
+                            <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1">Pesan Saat Pendaftaran Ditutup</label>
+                            <textarea name="closed_message" rows="4" class="w-full px-3 py-2 border border-stone-300 bg-white leading-relaxed">{{ old('closed_message', $oprecSetting->closed_message) }}</textarea>
+                            <p class="text-[10px] text-stone-500 mt-1">Pesan ini akan tampil di halaman /OprecJBZ saat pendaftaran ditutup.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button type="submit" class="px-6 py-2.5 bg-ink text-white font-bold uppercase tracking-wider hover:bg-jbz-charcoal transition">
+                            Simpan Pengaturan Oprec
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <h2 class="font-serif text-xl font-semibold text-ink border-b border-stone-200 pb-3 pt-2">Daftar Pendaftar Open Recruitment</h2>
             @forelse($applicants as $app)
                 <div class="p-4 bg-paper border border-stone-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div class="space-y-1 text-xs">

@@ -62,11 +62,11 @@
                 <a href="#program" class="hover:text-ink transition">Program Aksi</a>
                 <a href="#publikasi" class="hover:text-ink transition">Ruang Media PDD</a>
                 <a href="#kabinet" class="hover:text-ink transition">Struktur Kabinet</a>
-                <a href="#oprec" class="hover:text-ink transition">Open Recruitment</a>
+                <a href="{{ route('oprec.index') }}" class="hover:text-ink transition">Open Recruitment</a>
             </nav>
 
             <div class="hidden lg:flex items-center">
-                <a href="#oprec" class="px-6 py-2.5 bg-ink text-white text-xs font-bold tracking-wider uppercase hover:bg-jbz-charcoal transition">
+                <a href="{{ route('oprec.index') }}" class="px-6 py-2.5 bg-ink text-white text-xs font-bold tracking-wider uppercase hover:bg-jbz-charcoal transition">
                     Bergabung
                 </a>
             </div>
@@ -83,9 +83,9 @@
             <a href="#program" class="block py-1 hover:text-ink">Program Aksi</a>
             <a href="#publikasi" class="block py-1 hover:text-ink">Ruang Media PDD</a>
             <a href="#kabinet" class="block py-1 hover:text-ink">Struktur Kabinet</a>
-            <a href="#oprec" class="block py-1 hover:text-ink">Open Recruitment</a>
+            <a href="{{ route('oprec.index') }}" class="block py-1 hover:text-ink">Open Recruitment</a>
             <div class="pt-3 border-t border-stone-200">
-                <a href="#oprec" class="block w-full text-center py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider">Bergabung</a>
+                <a href="{{ route('oprec.index') }}" class="block w-full text-center py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider">Bergabung</a>
             </div>
         </div>
     </header>
@@ -122,7 +122,7 @@
                         <a href="{{ $primaryBanner->button_url ?? '#program' }}" class="px-7 py-3.5 bg-ink text-white text-xs font-bold uppercase tracking-[0.14em] hover:bg-jbz-charcoal transition">
                             {{ $primaryBanner->button_text ?? 'Lihat Program Aksi' }}
                         </a>
-                        <a href="#oprec" class="px-7 py-3.5 border border-ink text-ink text-xs font-bold uppercase tracking-[0.14em] hover:bg-ink hover:text-white transition">
+                        <a href="{{ route('oprec.index') }}" class="px-7 py-3.5 border border-ink text-ink text-xs font-bold uppercase tracking-[0.14em] hover:bg-ink hover:text-white transition">
                             Daftar Relawan
                         </a>
                     </div>
@@ -442,145 +442,6 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-        </div>
-    </section>
-
-    <!-- ================================================================== -->
-    <!-- 06. OPEN RECRUITMENT & CEK STATUS PENDAFTAR                        -->
-    <!-- ================================================================== -->
-    <section id="oprec" class="py-20 bg-ink text-white">
-        <div class="max-w-7xl mx-auto px-5 sm:px-8">
-            <div class="grid lg:grid-cols-12 gap-12 items-start">
-
-                <!-- Left Info + Status Checker -->
-                <div class="lg:col-span-5 space-y-8">
-                    <div class="space-y-4">
-                        <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-amber">05 / Open Recruitment</p>
-                        <h2 class="font-serif text-3xl sm:text-4xl leading-tight text-white">
-                            Turun Tangan Bersama Pemuda Purwakarta.
-                        </h2>
-                        <p class="text-sm text-stone-300 leading-relaxed">
-                            Terbuka bagi pelajar, mahasiswa, dan pemuda Kabupaten Purwakarta yang ingin berkontribusi nyata dalam aksi sosial, pendidikan, lingkungan, dan produksi kreatif media.
-                        </p>
-                    </div>
-
-                    <!-- Form Cek Status Oprec -->
-                    <div class="p-6 border border-stone-700 bg-stone-900/60 space-y-4">
-                        <p class="text-xs font-bold uppercase tracking-wider text-jbz-yellow">Cek Status Seleksi Oprec</p>
-                        <form action="{{ route('home') }}#oprec" method="GET" class="flex gap-2">
-                            <input type="text" name="cek_kode" value="{{ request('cek_kode') }}" placeholder="Masukkan Kode Registrasi (JBZ-PWK-...)" class="flex-1 px-3.5 py-2.5 bg-ink border border-stone-700 text-xs text-white focus:outline-none focus:border-jbz-amber">
-                            <button type="submit" class="px-4 py-2.5 bg-jbz-amber text-ink text-xs font-bold uppercase tracking-wider hover:bg-jbz-yellow transition">
-                                Cek
-                            </button>
-                        </form>
-
-                        @if(request()->filled('cek_kode'))
-                            @if($checkedApplicant)
-                                <div class="p-4 border border-stone-700 bg-ink text-xs space-y-1.5">
-                                    <div class="flex items-center justify-between">
-                                        <span class="font-mono font-bold text-jbz-amber">{{ $checkedApplicant->registration_code }}</span>
-                                        <span class="px-2 py-0.5 bg-jbz-green/20 text-jbz-green font-bold uppercase text-[10px] tracking-wider">{{ $checkedApplicant->status }}</span>
-                                    </div>
-                                    <p class="font-bold text-sm text-white">{{ $checkedApplicant->full_name }}</p>
-                                    <p class="text-stone-400">{{ $checkedApplicant->institution }} &mdash; {{ $checkedApplicant->firstChoiceDivision->name ?? '-' }}</p>
-                                </div>
-                            @else
-                                <p class="text-xs text-rose-400">Kode registrasi atau nama tidak ditemukan di database.</p>
-                            @endif
-                        @endif
-                    </div>
-                </div>
-
-                <!-- Right Registration Form -->
-                <div class="lg:col-span-7 bg-paper text-ink p-7 sm:p-10 border border-stone-700">
-                    @if(session('oprec_success'))
-                        <div class="mb-6 p-4 border-l-4 border-jbz-green bg-white text-ink text-xs font-bold">
-                            {{ session('oprec_success') }}
-                        </div>
-                    @endif
-
-                    @if($errors->any())
-                        <div class="mb-6 p-4 border-l-4 border-rose-600 bg-white text-rose-700 text-xs space-y-1">
-                            @foreach($errors->all() as $error)
-                                <p>{{ $error }}</p>
-                            @endforeach
-                        </div>
-                    @endif
-
-                    <form action="{{ route('oprec.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5 text-xs">
-                        @csrf
-                        <div class="border-b border-stone-200 pb-4">
-                            <h3 class="font-serif text-2xl font-semibold text-ink">Formulir Pendaftaran Anggota & Relawan</h3>
-                            <p class="text-jbz-charcoal mt-1">Isi data dengan benar. Berkas akan diverifikasi oleh panitia dan pengurus JBZ Purwakarta.</p>
-                        </div>
-
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1.5">Nama Lengkap *</label>
-                                <input type="text" name="full_name" required class="w-full px-3.5 py-2.5 bg-white border border-stone-300 focus:outline-none focus:border-ink">
-                            </div>
-                            <div>
-                                <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1.5">Kampus / Sekolah / Instansi *</label>
-                                <input type="text" name="institution" required class="w-full px-3.5 py-2.5 bg-white border border-stone-300 focus:outline-none focus:border-ink">
-                            </div>
-                        </div>
-
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1.5">Email Aktif *</label>
-                                <input type="email" name="email" required class="w-full px-3.5 py-2.5 bg-white border border-stone-300 focus:outline-none focus:border-ink">
-                            </div>
-                            <div>
-                                <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1.5">Nomor WhatsApp *</label>
-                                <input type="text" name="whatsapp" required placeholder="08xxxxxxxxxx" class="w-full px-3.5 py-2.5 bg-white border border-stone-300 focus:outline-none focus:border-ink">
-                            </div>
-                        </div>
-
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1.5">Pilihan Bidang 1 *</label>
-                                <select name="first_choice_division_id" required class="w-full px-3.5 py-2.5 bg-white border border-stone-300 focus:outline-none focus:border-ink">
-                                    @foreach($divisions as $div)
-                                        <option value="{{ $div->id }}">{{ $div->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1.5">Pilihan Bidang 2</label>
-                                <select name="second_choice_division_id" class="w-full px-3.5 py-2.5 bg-white border border-stone-300 focus:outline-none focus:border-ink">
-                                    <option value="">-- Opsional --</option>
-                                    @foreach($divisions as $div)
-                                        <option value="{{ $div->id }}">{{ $div->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1.5">Tautan Portofolio / IG</label>
-                                <input type="text" name="portfolio_url" placeholder="https://... atau @username" class="w-full px-3.5 py-2.5 bg-white border border-stone-300 focus:outline-none focus:border-ink">
-                            </div>
-                            <div>
-                                <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1.5">Unggah CV / Portofolio (PDF/JPG)</label>
-                                <input type="file" name="cv_file" accept=".pdf,.jpg,.jpeg,.png" class="w-full p-2 bg-white border border-stone-300">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block font-bold uppercase tracking-wider text-jbz-charcoal mb-1.5">Motivasi & Gagasan Kontribusi *</label>
-                            <textarea name="motivation" rows="3" required class="w-full px-3.5 py-2.5 bg-white border border-stone-300 focus:outline-none focus:border-ink"></textarea>
-                        </div>
-
-                        <div class="pt-2 flex items-center justify-between">
-                            <span class="text-[11px] font-semibold text-stone-500">Kami Muda Siap Aksi</span>
-                            <button type="submit" class="px-7 py-3 bg-ink text-white font-bold uppercase tracking-[0.14em] hover:bg-jbz-charcoal transition">
-                                Kirim Pendaftaran
-                            </button>
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     </section>

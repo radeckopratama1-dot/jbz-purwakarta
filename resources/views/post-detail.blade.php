@@ -63,11 +63,11 @@
                 <a href="{{ route('home') }}#program" class="hover:text-ink transition">Program Aksi</a>
                 <a href="{{ route('home') }}#publikasi" class="text-ink font-bold transition">Ruang Media PDD</a>
                 <a href="{{ route('home') }}#kabinet" class="hover:text-ink transition">Struktur Kabinet</a>
-                <a href="{{ route('home') }}#oprec" class="hover:text-ink transition">Open Recruitment</a>
+                <a href="{{ route('oprec.index') }}" class="hover:text-ink transition">Open Recruitment</a>
             </nav>
 
             <div class="hidden lg:flex items-center">
-                <a href="{{ route('home') }}#oprec" class="px-6 py-2.5 bg-ink text-white text-xs font-bold tracking-wider uppercase hover:bg-jbz-charcoal transition">
+                <a href="{{ route('oprec.index') }}" class="px-6 py-2.5 bg-ink text-white text-xs font-bold tracking-wider uppercase hover:bg-jbz-charcoal transition">
                     Bergabung
                 </a>
             </div>
@@ -84,7 +84,7 @@
             <a href="{{ route('home') }}#program" class="block py-1 hover:text-jbz-charcoal">Program Aksi</a>
             <a href="{{ route('home') }}#publikasi" class="block py-1 text-ink font-bold">Ruang Media PDD</a>
             <a href="{{ route('home') }}#kabinet" class="block py-1 hover:text-jbz-charcoal">Struktur Kabinet</a>
-            <a href="{{ route('home') }}#oprec" class="block py-1 text-jbz-amber font-bold">Open Recruitment</a>
+            <a href="{{ route('oprec.index') }}" class="block py-1 text-jbz-amber font-bold">Open Recruitment</a>
         </div>
     </header>
 

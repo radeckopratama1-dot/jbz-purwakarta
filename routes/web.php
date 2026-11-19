@@ -5,10 +5,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
-// 1. Rute Halaman Publik, Detail Program & Publikasi, serta Pendaftaran Oprec
+// 1. Rute Halaman Publik, Detail Program & Publikasi, serta Open Recruitment (Oprec)
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/program/{slug}', [PublicController::class, 'showProgram'])->name('program.show');
 Route::get('/publikasi/{slug}', [PublicController::class, 'showPost'])->name('post.show');
+
+// Halaman Khusus Oprec (/OprecJBZ) & Redirect ramah pengguna
+Route::redirect('/oprecjbz', '/OprecJBZ');
+Route::get('/OprecJBZ', [PublicController::class, 'showOprec'])->name('oprec.index');
 Route::post('/oprec/daftar', [PublicController::class, 'storeApplicant'])->name('oprec.store');
 
 // 2. Rute Autentikasi Admin (Login & Logout)
@@ -46,4 +50,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     // Verifikasi & Hapus Pendaftar Oprec
     Route::patch('/applicants/{applicant}/status', [AdminController::class, 'updateApplicantStatus'])->name('applicants.status');
     Route::delete('/applicants/{applicant}', [AdminController::class, 'destroyApplicant'])->name('applicants.destroy');
+
+    // Pengaturan Jadwal & Status Pendaftaran Oprec (/OprecJBZ)
+    Route::put('/oprec-settings', [AdminController::class, 'updateOprecSettings'])->name('oprec.settings.update');
 });

@@ -7,6 +7,7 @@ use App\Models\Applicant;
 use App\Models\Banner;
 use App\Models\BoardMember;
 use App\Models\Division;
+use App\Models\OprecSetting;
 use App\Models\Post;
 use App\Models\Program;
 use Illuminate\Http\Request;
@@ -26,6 +27,12 @@ class AdminController extends Controller
             'programs' => Program::with('division')->latest()->get(),
             'posts' => Post::with('division')->latest()->get(),
             'applicants' => Applicant::with(['firstChoiceDivision', 'secondChoiceDivision'])->latest()->get(),
+            'oprecSetting' => OprecSetting::firstOrCreate([], [
+                'batch_name' => 'Open Recruitment JBZ Kabupaten Purwakarta 2026',
+                'is_open' => true,
+                'timeline_text' => "1 - 14 Desember 2026 | Pendaftaran Online dan Pengumpulan Berkas\n15 - 18 Desember 2026 | Kurasi dan Seleksi Administrasi Berkas\n19 - 22 Desember 2026 | Sesi Seleksi Wawancara Online dan Offline\n25 Desember 2026 | Pengumuman Resmi Kelulusan Anggota Baru",
+                'closed_message' => 'Pendaftaran Open Recruitment JBZ Kabupaten Purwakarta saat ini telah ditutup. Terima kasih atas antusiasme kamu, sampai bertemu di kegiatan kolaborasi dan open recruitment JBZ selanjutnya!',
+            ]),
         ]);
     }
 
@@ -301,5 +308,28 @@ class AdminController extends Controller
         $applicant->delete();
 
         return back()->with('success', 'Data pendaftar Oprec berhasil dihapus!');
+    }
+
+    // ==========================================
+    // 6. PENGATURAN STATUS & JADWAL OPREC (/OprecJBZ)
+    // ==========================================
+    public function updateOprecSettings(Request $request)
+    {
+        $data = $request->validate([
+            'batch_name' => ['required', 'string', 'max:180'],
+            'is_open' => ['required', 'boolean'],
+            'start_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
+            'timeline_text' => ['nullable', 'string'],
+            'closed_message' => ['nullable', 'string'],
+        ]);
+
+        $setting = OprecSetting::firstOrCreate([], [
+            'batch_name' => 'Open Recruitment JBZ Kabupaten Purwakarta 2026',
+        ]);
+
+        $setting->update($data);
+
+        return back()->with('success', 'Pengaturan jadwal dan status pendaftaran Oprec (/OprecJBZ) berhasil diperbarui!');
     }
 }
