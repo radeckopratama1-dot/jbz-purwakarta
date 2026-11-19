@@ -89,96 +89,159 @@
     </header>
 
     @php
-        $primaryBanner = $banners->first();
+        $bannerList = $banners->where('is_active', true);
+        if ($bannerList->isEmpty()) {
+            $bannerList = $banners;
+        }
+        $bannerCount = $bannerList->count();
     @endphp
 
     <!-- ================================================================== -->
-    <!-- 01. SPLIT HERO SECTION (Kiri: Tipografi Tegas, Kanan: CRUD Banner) -->
+    <!-- 01. FULL-BLEED HERO SLIDER (Gaya Editorial Djarum Foundation)       -->
     <!-- ================================================================== -->
-    <section id="beranda" class="border-b border-stone-200">
-        <div class="max-w-7xl mx-auto px-5 sm:px-8 py-14 lg:py-20">
-            <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-
-                <!-- Left Editorial Typography & CTA -->
-                <div class="lg:col-span-6 space-y-7">
-                    <div class="flex items-center gap-3">
-                        <span class="h-px w-10 bg-jbz-amber"></span>
-                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-charcoal">
-                            Kabupaten Purwakarta &mdash; Jawa Barat
-                        </span>
-                    </div>
-
-                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] tracking-tight text-ink">
-                        {{ $primaryBanner->title ?? 'Bergerak Bersama Pemuda Purwakarta untuk Kemanusiaan dan Pendidikan.' }}
-                    </h1>
-
-                    <p class="text-base sm:text-lg text-jbz-charcoal leading-relaxed max-w-xl">
-                        {{ $primaryBanner->subtitle ?? 'Jabar Bergerak Zillenial (JBZ) Kabupaten Purwakarta mewadahi generasi muda yang Aktif, Adaptif, dan Kolaboratif dalam menghadirkan aksi sosial, pendidikan, serta pelestarian lingkungan yang berdampak nyata.' }}
-                    </p>
-
-                    <div class="flex flex-wrap items-center gap-4 pt-2">
-                        <a href="{{ $primaryBanner->button_url ?? '#program' }}" class="px-7 py-3.5 bg-ink text-white text-xs font-bold uppercase tracking-[0.14em] rounded-full hover:bg-jbz-charcoal hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
-                            {{ $primaryBanner->button_text ?? 'Lihat Program' }}
-                        </a>
-                    </div>
-
-                    <!-- Minimalist Institutional Proof Bar -->
-                    <div class="grid grid-cols-3 gap-6 pt-8 border-t border-stone-200/80">
-                        <div>
-                            <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink">2020</p>
-                            <p class="text-[11px] uppercase tracking-wider text-jbz-charcoal mt-1">Berdiri di Jabar</p>
+    <section id="beranda" class="relative w-full min-h-[540px] lg:min-h-[620px] h-[580px] lg:h-[640px] overflow-hidden border-b border-stone-200/80 bg-paper">
+        @if($bannerCount > 0)
+            @foreach($bannerList as $banner)
+                <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out {{ $loop->first ? 'opacity-100 z-20 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none' }}" data-slide-index="{{ $loop->index }}">
+                    <!-- Layer 1 (z-0): Foto Banner Layar Penuh -->
+                    @if($banner->image_path)
+                        <img src="{{ asset('storage/' . $banner->image_path) }}"
+                             alt="{{ $banner->title }}"
+                             class="absolute inset-0 w-full h-full object-cover object-center z-0"
+                             loading="{{ $loop->first ? 'eager' : 'lazy' }}">
+                    @else
+                        <div class="absolute inset-0 w-full h-full bg-stone-200 flex items-center justify-center z-0">
+                            <span class="font-serif text-2xl text-stone-400">Jabar Bergerak Zillenial Kabupaten Purwakarta</span>
                         </div>
-                        <div>
-                            <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink">{{ $divisions->count() }}</p>
-                            <p class="text-[11px] uppercase tracking-wider text-jbz-charcoal mt-1">Bidang Aktif</p>
-                        </div>
-                        <div>
-                            <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink">{{ $programs->count() }}+</p>
-                            <p class="text-[11px] uppercase tracking-wider text-jbz-charcoal mt-1">Program Terdata</p>
+                    @endif
+
+                    <!-- Layer 2 (z-10): Overlay Gradasi Lembut dari Kiri -->
+                    <div class="absolute inset-0 pointer-events-none z-10 bg-gradient-to-r from-[#FAF9F6] via-[#FAF9F6]/90 to-transparent"></div>
+                    <div class="absolute inset-0 pointer-events-none z-10 bg-gradient-to-t from-[#FAF9F6]/80 via-transparent to-transparent md:hidden"></div>
+
+                    <!-- Layer 3 (relative z-20): Wadah Konten Teks -->
+                    <div class="relative z-20 max-w-7xl mx-auto h-full flex items-center px-5 sm:px-8">
+                        <div class="max-w-xl py-14 sm:py-20 lg:py-24 space-y-6">
+                            <div class="flex items-center gap-3">
+                                <span class="h-px w-10 bg-jbz-amber"></span>
+                                <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#585850]">
+                                    Kabupaten Purwakarta &mdash; Jawa Barat
+                                </span>
+                            </div>
+
+                            <h1 class="font-serif text-3xl sm:text-5xl lg:text-[3.3rem] leading-[1.1] tracking-tight text-[#1C1C1A]">
+                                {{ $banner->title }}
+                            </h1>
+
+                            @if($banner->subtitle)
+                                <p class="text-sm sm:text-base lg:text-lg text-[#585850] leading-relaxed max-w-lg">
+                                    {{ $banner->subtitle }}
+                                </p>
+                            @endif
+
+                            <div class="flex flex-wrap items-center gap-4 pt-1">
+                                <a href="{{ $banner->button_url ?? '#program' }}" class="px-7 py-3.5 bg-[#1C1C1A] text-white text-xs font-bold uppercase tracking-[0.14em] rounded-full hover:bg-jbz-charcoal hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+                                    {{ $banner->button_text ?? 'Lihat Program Aksi' }}
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
+            @endforeach
+        @else
+            <!-- Fallback 1 Slide Default jika belum ada banner aktif -->
+            <div class="hero-slide absolute inset-0 opacity-100 z-20 pointer-events-auto" data-slide-index="0">
+                <!-- Layer 1 (z-0): Background Fallback -->
+                <div class="absolute inset-0 w-full h-full bg-stone-100 flex items-center justify-center z-0">
+                    <img src="{{ asset('images/logo/logo-jbz-purwakarta.png') }}" alt="JBZ Purwakarta" class="h-40 w-auto opacity-10 object-contain" loading="eager">
+                </div>
 
-                <!-- Right Editorial Banner Frame (Dynamic from CRUD Banners) -->
-                <div class="lg:col-span-6">
-                    <div class="relative border border-stone-200/80 bg-white p-3 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] transition-all duration-300">
-                        @if($primaryBanner && $primaryBanner->image_path)
-                            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-stone-100">
-                                <img src="{{ asset('storage/' . $primaryBanner->image_path) }}"
-                                     alt="{{ $primaryBanner->title }}"
-                                     class="w-full h-full object-cover">
-                            </div>
-                        @else
-                            <div class="aspect-[4/3] w-full bg-stone-100 rounded-xl flex flex-col items-center justify-center p-8 text-center border border-dashed border-stone-300">
-                                <p class="font-serif text-xl text-ink">Dokumentasi Aksi Lapangan</p>
-                                <p class="text-xs text-jbz-charcoal mt-2 max-w-xs leading-relaxed">
-                                    Potret kebersamaan dan aksi kepemudaan Jabar Bergerak Zillenial Kabupaten Purwakarta.
-                                </p>
-                            </div>
-                        @endif
+                <!-- Layer 2 (z-10): Overlay Gradasi Lembut dari Kiri -->
+                <div class="absolute inset-0 pointer-events-none z-10 bg-gradient-to-r from-[#FAF9F6] via-[#FAF9F6]/90 to-transparent"></div>
+                <div class="absolute inset-0 pointer-events-none z-10 bg-gradient-to-t from-[#FAF9F6]/80 via-transparent to-transparent md:hidden"></div>
 
-                        <!-- Caption Strip ala Editorial -->
-                        <div class="pt-3 px-1.5 flex items-center justify-between text-[11px] text-jbz-charcoal">
-                            <span class="font-semibold uppercase tracking-wider">Kami Muda Siap Aksi</span>
-                            <span class="font-medium text-stone-400">Dokumentasi Bidang Media / PDD</span>
+                <!-- Layer 3 (relative z-20): Wadah Konten Teks -->
+                <div class="relative z-20 max-w-7xl mx-auto h-full flex items-center px-5 sm:px-8">
+                    <div class="max-w-xl py-14 sm:py-20 lg:py-24 space-y-6">
+                        <div class="flex items-center gap-3">
+                            <span class="h-px w-10 bg-jbz-amber"></span>
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#585850]">
+                                Kabupaten Purwakarta &mdash; Jawa Barat
+                            </span>
+                        </div>
+                        <h1 class="font-serif text-3xl sm:text-5xl lg:text-[3.3rem] leading-[1.1] tracking-tight text-[#1C1C1A]">
+                            Bergerak Bersama Pemuda Purwakarta untuk Kemanusiaan dan Pendidikan.
+                        </h1>
+                        <p class="text-sm sm:text-base lg:text-lg text-[#585850] leading-relaxed max-w-lg">
+                            Jabar Bergerak Zillenial (JBZ) Kabupaten Purwakarta mewadahi generasi muda yang Aktif, Adaptif, dan Kolaboratif dalam menghadirkan aksi sosial, pendidikan, serta pelestarian lingkungan yang berdampak nyata.
+                        </p>
+                        <div class="flex flex-wrap items-center gap-4 pt-1">
+                            <a href="#program" class="px-7 py-3.5 bg-[#1C1C1A] text-white text-xs font-bold uppercase tracking-[0.14em] rounded-full hover:bg-jbz-charcoal hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+                                Lihat Program Aksi
+                            </a>
+                            <a href="{{ route('oprec.index') }}" class="px-7 py-3.5 border border-[#1C1C1A] text-[#1C1C1A] text-xs font-bold uppercase tracking-[0.14em] rounded-full hover:bg-[#1C1C1A] hover:text-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+                                Daftar Relawan
+                            </a>
                         </div>
                     </div>
+                </div>
+            </div>
+        @endif
 
-                    <!-- Mini Thumbnail Strip jika ada lebih dari 1 Banner di CRUD -->
-                    @if($banners->count() > 1)
-                        <div class="grid grid-cols-3 gap-3 mt-3">
-                            @foreach($banners->skip(1)->take(3) as $subBanner)
-                                <div class="border border-stone-200/80 bg-white p-2 rounded-xl shadow-[0_2px_8px_rgba(28,28,26,0.03)] hover:shadow-[0_6px_16px_rgba(28,28,26,0.06)] transition-all duration-200">
-                                    <div class="aspect-[16/10] overflow-hidden rounded-lg bg-stone-100">
-                                        <img src="{{ asset('storage/' . $subBanner->image_path) }}"
-                                             alt="{{ $subBanner->title }}"
-                                             class="w-full h-full object-cover">
-                                    </div>
-                                    <p class="text-[10px] font-semibold text-jbz-charcoal truncate mt-1.5 px-0.5">{{ $subBanner->title }}</p>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
+        <!-- Indikator Garis Horizontal di Bawah Tengah (Gaya Djarum Foundation) -->
+        @if($bannerCount > 1)
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5">
+                @for($i = 0; $i < $bannerCount; $i++)
+                    <button type="button"
+                            onclick="goToHeroSlide({{ $i }})"
+                            class="hero-indicator h-1.5 transition-all duration-300 rounded-full {{ $i === 0 ? 'w-10 bg-jbz-amber' : 'w-6 bg-stone-400/50 hover:bg-stone-500' }}"
+                            aria-label="Menuju Slide {{ $i + 1 }}"
+                            data-indicator-index="{{ $i }}">
+                    </button>
+                @endfor
+            </div>
+
+            <!-- Tombol Panah Halus Kiri & Kanan (Navigasi Slider Tambahan) -->
+            <button type="button"
+                    onclick="prevHeroSlide()"
+                    class="hidden md:flex absolute left-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-paper/80 hover:bg-paper backdrop-blur border border-stone-200/80 items-center justify-center text-[#1C1C1A] hover:text-jbz-amber transition-all shadow-sm hover:shadow-md"
+                    aria-label="Slide Sebelumnya">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button type="button"
+                    onclick="nextHeroSlide()"
+                    class="hidden md:flex absolute right-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-paper/80 hover:bg-paper backdrop-blur border border-stone-200/80 items-center justify-center text-[#1C1C1A] hover:text-jbz-amber transition-all shadow-sm hover:shadow-md"
+                    aria-label="Slide Berikutnya">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+        @endif
+
+        <!-- Scroll-Down Indicator di Pojok Kanan Bawah (Gaya Djarum Foundation) -->
+        <a href="#misi"
+           class="hidden sm:flex absolute bottom-6 right-6 lg:right-10 z-30 items-center gap-2.5 text-xs font-semibold uppercase tracking-wider text-[#585850] hover:text-[#1C1C1A] transition group"
+           aria-label="Gulir ke Misi & Bidang">
+            <span class="text-[11px] font-bold tracking-widest group-hover:text-[#1C1C1A]">Jelajahi</span>
+            <div class="w-8 h-8 rounded-full border border-stone-300 group-hover:border-[#1C1C1A] flex items-center justify-center transition">
+                <svg class="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </div>
+        </a>
+    </section>
+
+    <!-- Strip Statistik Ringkas Lembaga (Tepat di Bawah Hero Slider) -->
+    <section class="border-b border-stone-200/80 bg-white py-6">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8">
+            <div class="grid grid-cols-3 divide-x divide-stone-200/80 text-center">
+                <div class="px-3 sm:px-6">
+                    <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink">2020</p>
+                    <p class="text-[11px] sm:text-xs uppercase tracking-wider text-jbz-charcoal mt-1">Berdiri di Jabar</p>
+                </div>
+                <div class="px-3 sm:px-6">
+                    <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink">{{ $divisions->count() }}</p>
+                    <p class="text-[11px] sm:text-xs uppercase tracking-wider text-jbz-charcoal mt-1">Bidang Aktif</p>
+                </div>
+                <div class="px-3 sm:px-6">
+                    <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink">{{ $programs->count() }}+</p>
+                    <p class="text-[11px] sm:text-xs uppercase tracking-wider text-jbz-charcoal mt-1">Program Terdata</p>
                 </div>
             </div>
         </div>
@@ -263,6 +326,7 @@
                                 @if($program->cover_image)
                                     <img src="{{ asset('storage/' . $program->cover_image) }}"
                                          alt="{{ $program->title }}"
+                                         loading="lazy"
                                          class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500">
                                 @else
                                     <div class="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-stone-100">
@@ -335,6 +399,7 @@
                                 @if($post->image_path)
                                     <img src="{{ asset('storage/' . $post->image_path) }}"
                                          alt="{{ $post->title }}"
+                                         loading="lazy"
                                          class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center p-6 text-center bg-stone-50">
@@ -411,6 +476,7 @@
                                 @if($member->photo_path)
                                     <img src="{{ asset('storage/' . $member->photo_path) }}"
                                          alt="{{ $member->full_name }}"
+                                         loading="lazy"
                                          class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center bg-stone-100 text-jbz-charcoal font-serif text-3xl">
@@ -457,8 +523,93 @@
         </div>
     </footer>
 
-    <!-- Script Filter Interaktif Client-Side Program & Kabinet -->
+    <!-- Script Filter Interaktif Client-Side Program & Kabinet & Hero Slider -->
     <script>
+        // ==========================================
+        // HERO SLIDER FULL-BLEED (GAYA DJARUM FOUNDATION)
+        // ==========================================
+        let currentHeroSlide = 0;
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        const heroIndicators = document.querySelectorAll('.hero-indicator');
+        const totalHeroSlides = heroSlides.length;
+        let heroSlideTimer = null;
+        const HERO_INTERVAL = 5000;
+
+        function showHeroSlide(index) {
+            if (totalHeroSlides <= 1) return;
+
+            if (index >= totalHeroSlides) {
+                currentHeroSlide = 0;
+            } else if (index < 0) {
+                currentHeroSlide = totalHeroSlides - 1;
+            } else {
+                currentHeroSlide = index;
+            }
+
+            heroSlides.forEach((slide, i) => {
+                if (i === currentHeroSlide) {
+                    slide.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+                    slide.classList.add('opacity-100', 'pointer-events-auto', 'z-20');
+                } else {
+                    slide.classList.remove('opacity-100', 'pointer-events-auto', 'z-20', 'z-10');
+                    slide.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+                }
+            });
+
+            heroIndicators.forEach((indicator, i) => {
+                if (i === currentHeroSlide) {
+                    indicator.className = 'hero-indicator h-1.5 transition-all duration-300 rounded-full w-10 bg-jbz-amber';
+                } else {
+                    indicator.className = 'hero-indicator h-1.5 transition-all duration-300 rounded-full w-6 bg-stone-400/50 hover:bg-stone-500';
+                }
+            });
+        }
+
+        function nextHeroSlide() {
+            showHeroSlide(currentHeroSlide + 1);
+            resetHeroTimer();
+        }
+
+        function prevHeroSlide() {
+            showHeroSlide(currentHeroSlide - 1);
+            resetHeroTimer();
+        }
+
+        function goToHeroSlide(index) {
+            showHeroSlide(index);
+            resetHeroTimer();
+        }
+
+        function startHeroTimer() {
+            if (totalHeroSlides > 1 && !heroSlideTimer) {
+                heroSlideTimer = setInterval(() => {
+                    showHeroSlide(currentHeroSlide + 1);
+                }, HERO_INTERVAL);
+            }
+        }
+
+        function stopHeroTimer() {
+            if (heroSlideTimer) {
+                clearInterval(heroSlideTimer);
+                heroSlideTimer = null;
+            }
+        }
+
+        function resetHeroTimer() {
+            stopHeroTimer();
+            startHeroTimer();
+        }
+
+        const heroContainer = document.getElementById('beranda');
+        if (heroContainer && totalHeroSlides > 1) {
+            heroContainer.addEventListener('mouseenter', stopHeroTimer);
+            heroContainer.addEventListener('mouseleave', startHeroTimer);
+            startHeroTimer();
+        }
+
+        // ==========================================
+        // FILTER PROGRAM & ANGGOTA KABINET
+        // ==========================================
         function filterPrograms(pillar) {
             document.querySelectorAll('.program-filter-btn').forEach(btn => {
                 if (btn.getAttribute('data-filter') === pillar) {
