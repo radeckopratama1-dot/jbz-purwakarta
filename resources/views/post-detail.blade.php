@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +40,9 @@
         }
     </script>
 </head>
-<body class="bg-paper text-ink antialiased selection:bg-jbz-amber/30 selection:text-ink min-h-screen flex flex-col justify-between">
+<body class="bg-paper text-ink antialiased selection:bg-jbz-amber/30 selection:text-ink min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    @include('partials.motion')
 
     <!-- Hairline Brand Signature Bar (3 Warna Resmi Logo JBZ) -->
     <div class="h-1 w-full flex">
@@ -78,11 +80,11 @@
         </div>
 
         <!-- Mobile Menu Container -->
-        <div id="mobile-nav" class="hidden lg:hidden border-b border-stone-200/80 bg-white px-5 py-4 space-y-3 text-sm font-semibold">
-            <a href="{{ route('home') }}#misi" class="block py-1 hover:text-jbz-charcoal">Misi & Bidang</a>
-            <a href="{{ route('home') }}#program" class="block py-1 hover:text-jbz-charcoal">Program Aksi</a>
-            <a href="{{ route('home') }}#publikasi" class="block py-1 text-ink font-bold">Ruang Media PDD</a>
-            <a href="{{ route('home') }}#kabinet" class="block py-1 hover:text-jbz-charcoal">Struktur Kabinet</a>
+        <div id="mobile-nav" class="hidden lg:hidden border-b border-stone-200/80 bg-paper px-6 py-5 space-y-2 text-sm font-semibold text-jbz-charcoal transition-all duration-300">
+            <a href="{{ route('home') }}#misi" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Misi & Bidang</a>
+            <a href="{{ route('home') }}#program" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Program Aksi</a>
+            <a href="{{ route('home') }}#publikasi" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 text-ink font-bold transition">Ruang Media PDD</a>
+            <a href="{{ route('home') }}#kabinet" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Struktur Kabinet</a>
             <div class="pt-3 border-t border-stone-200/80">
                 <a href="{{ route('oprec.index') }}" class="block w-full text-center py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-jbz-charcoal transition-all duration-200">Bergabung</a>
             </div>
@@ -94,7 +96,7 @@
         <article class="max-w-4xl mx-auto px-5 sm:px-8 space-y-8">
 
             <!-- Breadcrumb Navigation -->
-            <nav class="flex items-center gap-2 text-xs font-semibold tracking-wider text-jbz-charcoal uppercase">
+            <nav class="flex items-center gap-2 text-xs font-semibold tracking-wider text-jbz-charcoal uppercase reveal-fade">
                 <a href="{{ route('home') }}" class="hover:text-ink transition">Beranda</a>
                 <span class="text-stone-300">/</span>
                 <a href="{{ route('home') }}#publikasi" class="hover:text-ink transition">Ruang Media PDD</a>
@@ -103,7 +105,7 @@
             </nav>
 
             <!-- Metadata Header -->
-            <div class="space-y-4 border-b border-stone-200/80 pb-8">
+            <div class="space-y-4 border-b border-stone-200/80 pb-8 reveal-up">
                 <div class="flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-wider">
                     <span class="px-3.5 py-1 bg-jbz-cyan/15 text-jbz-cyan border border-jbz-cyan/30 rounded-full font-bold text-xs">{{ $post->type }}</span>
                     <span class="text-stone-500 font-semibold">{{ $post->division->name ?? 'Bidang Media & Produksi Visual (PDD)' }}</span>
@@ -127,7 +129,7 @@
 
             <!-- Full Cover / Photo -->
             @if($post->image_path)
-                <div class="aspect-[16/9] w-full overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100 shadow-[0_2px_12px_rgba(28,28,26,0.04)]">
+                <div class="aspect-[16/9] w-full overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100 shadow-[0_2px_12px_rgba(28,28,26,0.04)] reveal-up reveal-delay-1">
                     <img src="{{ asset('storage/' . $post->image_path) }}"
                          alt="{{ $post->title }}"
                          class="w-full h-full object-cover">
@@ -136,7 +138,7 @@
 
             <!-- Excerpt Lead -->
             @if($post->excerpt)
-                <div class="border-l-4 border-jbz-cyan pl-5 py-3 bg-white border border-stone-200/80 rounded-r-xl shadow-[0_2px_8px_rgba(28,28,26,0.02)]">
+                <div class="border-l-4 border-jbz-cyan pl-5 py-3 bg-white border border-stone-200/80 rounded-r-xl shadow-[0_2px_8px_rgba(28,28,26,0.02)] reveal-up reveal-delay-2">
                     <p class="font-serif text-lg sm:text-xl text-ink italic leading-relaxed">
                         {{ $post->excerpt }}
                     </p>
@@ -144,16 +146,16 @@
             @endif
 
             <!-- Full Body Content -->
-            <div class="prose prose-stone max-w-none text-ink text-base leading-relaxed space-y-4 pt-4">
+            <div class="prose prose-stone max-w-none text-ink text-base leading-relaxed space-y-4 pt-4 reveal-up">
                 {!! nl2br(e($post->body)) !!}
             </div>
 
             <!-- Back & Share Section -->
-            <div class="pt-8 border-t border-stone-200/80 flex flex-wrap items-center justify-between gap-4">
-                <a href="{{ route('home') }}#publikasi" class="px-6 py-2.5 border border-stone-300 text-ink text-xs font-bold uppercase tracking-wider rounded-full hover:bg-stone-100 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+            <div class="pt-8 border-t border-stone-200/80 flex flex-wrap items-center justify-between gap-4 reveal-up">
+                <a href="{{ route('home') }}#publikasi" class="w-full sm:w-auto px-6 py-2.5 border border-stone-300 text-ink text-xs font-bold uppercase tracking-wider rounded-full hover:bg-stone-100 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 text-center">
                     &larr; Kembali ke Ruang Media
                 </a>
-                <a href="{{ route('home') }}#program" class="px-6 py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-jbz-charcoal hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+                <a href="{{ route('home') }}#program" class="w-full sm:w-auto px-6 py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-jbz-charcoal hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 text-center">
                     Lihat Program Kerja JBZ
                 </a>
             </div>
@@ -163,14 +165,14 @@
         <!-- Bagian Publikasi Lainnya -->
         @if($otherPosts->count() > 0)
             <section class="max-w-7xl mx-auto px-5 sm:px-8 mt-20 pt-16 border-t border-stone-200/80 space-y-8">
-                <div>
+                <div class="reveal-up">
                     <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-cyan">Arsip Dokumentasi</p>
                     <h2 class="font-serif text-2xl sm:text-3xl text-ink mt-1">Publikasi & Liputan Lainnya</h2>
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
                     @foreach($otherPosts as $other)
-                        <article class="group border border-stone-200/80 bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
+                        <article class="group border border-stone-200/80 bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between reveal-up reveal-delay-{{ ($loop->index % 3) + 1 }}">
                             <div>
                                 <a href="{{ route('post.show', $other->slug) }}" class="block aspect-[4/3] w-full overflow-hidden bg-stone-100 border-b border-stone-200/80">
                                     @if($other->image_path)
@@ -201,7 +203,7 @@
                             </div>
 
                             <div class="px-6 py-3 border-t border-stone-100 flex items-center justify-between text-xs">
-                                <a href="{{ route('post.show', $other->slug) }}" class="text-ink font-bold uppercase tracking-wider text-[11px] underline underline-offset-4 decoration-jbz-cyan hover:text-jbz-charcoal transition">
+                                <a href="{{ route('post.show', $other->slug) }}" class="editorial-link text-ink font-bold uppercase tracking-wider text-[11px] hover:text-jbz-charcoal transition">
                                     Baca Selengkapnya &rarr;
                                 </a>
                                 <span class="text-stone-400 text-[10px]">Oleh {{ $other->author_name }}</span>

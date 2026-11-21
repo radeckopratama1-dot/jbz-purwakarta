@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +40,9 @@
         }
     </script>
 </head>
-<body class="bg-paper text-ink antialiased selection:bg-jbz-amber/30 selection:text-ink min-h-screen flex flex-col justify-between">
+<body class="bg-paper text-ink antialiased selection:bg-jbz-amber/30 selection:text-ink min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    @include('partials.motion')
 
     <!-- Hairline Brand Signature Bar (3 Warna Resmi Logo JBZ) -->
     <div class="h-1 w-full flex">
@@ -78,11 +80,11 @@
         </div>
 
         <!-- Mobile Menu Container -->
-        <div id="mobile-nav" class="hidden lg:hidden border-b border-stone-200/80 bg-white px-5 py-4 space-y-3 text-sm font-semibold">
-            <a href="{{ route('home') }}#misi" class="block py-1 hover:text-jbz-charcoal">Misi & Bidang</a>
-            <a href="{{ route('home') }}#program" class="block py-1 hover:text-jbz-charcoal">Program Aksi</a>
-            <a href="{{ route('home') }}#publikasi" class="block py-1 hover:text-jbz-charcoal">Ruang Media PDD</a>
-            <a href="{{ route('home') }}#kabinet" class="block py-1 hover:text-jbz-charcoal">Struktur Kabinet</a>
+        <div id="mobile-nav" class="hidden lg:hidden border-b border-stone-200/80 bg-paper px-6 py-5 space-y-2 text-sm font-semibold text-jbz-charcoal transition-all duration-300">
+            <a href="{{ route('home') }}#misi" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Misi & Bidang</a>
+            <a href="{{ route('home') }}#program" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Program Aksi</a>
+            <a href="{{ route('home') }}#publikasi" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Ruang Media PDD</a>
+            <a href="{{ route('home') }}#kabinet" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Struktur Kabinet</a>
             <div class="pt-3 border-t border-stone-200/80">
                 <a href="{{ route('home') }}" class="block w-full text-center py-2.5 border border-stone-300 text-ink text-xs font-bold uppercase tracking-wider rounded-full hover:bg-stone-100 transition-all duration-200">Ke Beranda Utama</a>
             </div>
@@ -93,14 +95,14 @@
         <div class="max-w-7xl mx-auto px-5 sm:px-8 space-y-12">
 
             <!-- Breadcrumb Navigation -->
-            <nav class="flex items-center gap-2 text-xs font-semibold tracking-wider text-jbz-charcoal uppercase">
+            <nav class="flex items-center gap-2 text-xs font-semibold tracking-wider text-jbz-charcoal uppercase reveal-fade">
                 <a href="{{ route('home') }}" class="hover:text-ink transition">Beranda</a>
                 <span class="text-stone-300">/</span>
                 <span class="text-stone-500">Open Recruitment</span>
             </nav>
 
             <!-- Hero Header Section -->
-            <div class="border-b border-stone-200/80 pb-10 space-y-4">
+            <div class="border-b border-stone-200/80 pb-10 space-y-4 reveal-up">
                 <div class="flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-wider">
                     <span class="px-3.5 py-1 bg-ink text-white font-mono rounded-full text-[11px]">{{ $setting->batch_name }}</span>
                     @if($isOprecOpen)
@@ -131,7 +133,7 @@
                 $timeline = $setting->parsedTimeline();
             @endphp
             @if(count($timeline) > 0)
-                <section class="p-6 sm:p-8 bg-white border border-stone-200/80 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.04)] space-y-6">
+                <section class="p-6 sm:p-8 bg-white border border-stone-200/80 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.04)] space-y-6 reveal-up">
                     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-stone-100 pb-4">
                         <div>
                             <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-amber">Tahapan Seleksi</p>
@@ -142,7 +144,7 @@
 
                     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         @foreach($timeline as $index => $item)
-                            <div class="p-5 bg-paper border border-stone-200/80 rounded-xl flex flex-col justify-between space-y-3 shadow-[0_1px_4px_rgba(28,28,26,0.02)] hover:shadow-[0_4px_12px_rgba(28,28,26,0.05)] hover:-translate-y-0.5 transition-all duration-200">
+                            <div class="p-5 bg-paper border border-stone-200/80 rounded-xl flex flex-col justify-between space-y-3 shadow-[0_1px_4px_rgba(28,28,26,0.02)] hover:shadow-[0_4px_12px_rgba(28,28,26,0.05)] hover:-translate-y-0.5 transition-all duration-200 reveal-up reveal-delay-{{ ($index % 4) + 1 }}">
                                 <div class="space-y-1">
                                     <span class="inline-block px-2.5 py-0.5 bg-ink text-white font-mono text-[10px] font-bold rounded-full">Tahap 0{{ $index + 1 }}</span>
                                     <p class="text-xs font-bold text-jbz-charcoal uppercase tracking-wider pt-1">{{ $item['date'] }}</p>
@@ -167,7 +169,7 @@
                     <div class="lg:col-span-5 space-y-8">
 
                         <!-- Kotak Cek Status Seleksi Oprec -->
-                        <div class="p-6 bg-ink text-white border border-stone-800 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.06)] space-y-4">
+                        <div class="p-6 bg-ink text-white border border-stone-800 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.06)] space-y-4 reveal-up reveal-delay-1">
                             <div class="space-y-1">
                                 <p class="text-xs font-bold uppercase tracking-wider text-jbz-yellow">Cek Status Seleksi Oprec</p>
                                 <p class="text-xs text-stone-300">Masukkan kode registrasi unik kamu untuk mengecek hasil seleksi berkala.</p>
@@ -212,7 +214,7 @@
                         </div>
 
                         <!-- Info Bidang JBZ Purwakarta -->
-                        <div class="p-6 bg-white border border-stone-200/80 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.04)] space-y-4">
+                        <div class="p-6 bg-white border border-stone-200/80 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.04)] space-y-4 reveal-up reveal-delay-2">
                             <h3 class="font-serif text-lg font-semibold text-ink border-b border-stone-100 pb-2">5 Bidang Pengabdian JBZ Purwakarta</h3>
                             <ul class="space-y-3 text-xs text-jbz-charcoal">
                                 <li>
@@ -241,7 +243,7 @@
                     </div>
 
                     <!-- Kolom Kanan: Formulir Registrasi Oprec Lengkap -->
-                    <div class="lg:col-span-7 bg-white p-7 sm:p-10 border border-stone-200/80 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] transition-all duration-300 space-y-6">
+                    <div class="lg:col-span-7 bg-white p-7 sm:p-10 border border-stone-200/80 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] transition-all duration-300 space-y-6 reveal-up reveal-delay-1">
 
                         <!-- Notifikasi Sukses Pendaftaran -->
                         @if(session('oprec_success'))
@@ -353,7 +355,7 @@
                 <div class="max-w-4xl mx-auto space-y-10">
 
                     <!-- Kartu Penutupan Editorial -->
-                    <div class="p-8 sm:p-12 bg-white border border-stone-200/80 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.04)] text-center space-y-6">
+                    <div class="p-8 sm:p-12 bg-white border border-stone-200/80 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.04)] text-center space-y-6 reveal-up">
                         <div class="inline-block px-3.5 py-1 bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold uppercase tracking-wider rounded-full">
                             Pemberitahuan Resmi
                         </div>
@@ -377,7 +379,7 @@
                     </div>
 
                     <!-- Kotak Cek Status Seleksi Pendaftar Berjalan -->
-                    <div class="p-8 bg-ink text-white border border-stone-800 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.06)] space-y-4 max-w-2xl mx-auto">
+                    <div class="p-8 bg-ink text-white border border-stone-800 rounded-2xl shadow-[0_2px_12px_rgba(28,28,26,0.06)] space-y-4 max-w-2xl mx-auto reveal-up reveal-delay-1">
                         <div class="space-y-1">
                             <p class="text-xs font-bold uppercase tracking-wider text-jbz-yellow">Cek Status Hasil Seleksi Oprec</p>
                             <p class="text-xs text-stone-300">Bagi calon anggota yang telah mendaftar pada periode ini, kamu tetap dapat mengecek perkembangan status kelulusan di bawah ini.</p>

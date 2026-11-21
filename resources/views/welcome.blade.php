@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,7 +39,9 @@
         }
     </script>
 </head>
-<body class="bg-paper text-ink antialiased selection:bg-jbz-amber/30 selection:text-ink">
+<body class="bg-paper text-ink antialiased selection:bg-jbz-amber/30 selection:text-ink overflow-x-hidden">
+
+    @include('partials.motion')
 
     <!-- Hairline Brand Signature Bar (3 Warna Resmi Logo JBZ) -->
     <div class="h-1 w-full flex">
@@ -77,11 +79,11 @@
         </div>
 
         <!-- Mobile Drawer -->
-        <div id="mobile-nav" class="hidden lg:hidden bg-paper border-t border-stone-200/80 px-6 py-5 space-y-3 text-sm font-semibold text-jbz-charcoal">
-            <a href="#misi" class="block py-1 hover:text-ink transition">Misi & Bidang</a>
-            <a href="#program" class="block py-1 hover:text-ink transition">Program Aksi</a>
-            <a href="#publikasi" class="block py-1 hover:text-ink transition">Ruang Media PDD</a>
-            <a href="#kabinet" class="block py-1 hover:text-ink transition">Struktur Kabinet</a>
+        <div id="mobile-nav" class="hidden lg:hidden bg-paper border-t border-stone-200/80 px-6 py-5 space-y-2 text-sm font-semibold text-jbz-charcoal transition-all duration-300">
+            <a href="#misi" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Misi & Bidang</a>
+            <a href="#program" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Program Aksi</a>
+            <a href="#publikasi" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Ruang Media PDD</a>
+            <a href="#kabinet" class="block py-2.5 px-3 rounded-xl hover:bg-stone-100 hover:text-ink transition">Struktur Kabinet</a>
             <div class="pt-3 border-t border-stone-200/80">
                 <a href="{{ route('oprec.index') }}" class="block w-full text-center py-2.5 bg-ink text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-jbz-charcoal transition-all duration-200">Bergabung</a>
             </div>
@@ -99,7 +101,7 @@
     <!-- ================================================================== -->
     <!-- 01. FULL-BLEED HERO SLIDER (Gaya Editorial Djarum Foundation)       -->
     <!-- ================================================================== -->
-    <section id="beranda" class="relative w-full min-h-[540px] lg:min-h-[620px] h-[580px] lg:h-[640px] overflow-hidden border-b border-stone-200/80 bg-paper">
+    <section id="beranda" class="relative w-full min-h-[480px] sm:min-h-[560px] lg:min-h-[620px] h-auto sm:h-[580px] lg:h-[640px] overflow-hidden border-b border-stone-200/80 bg-paper">
         @if($bannerCount > 0)
             @foreach($bannerList as $banner)
                 <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out {{ $loop->first ? 'opacity-100 z-20 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none' }}" data-slide-index="{{ $loop->index }}">
@@ -115,9 +117,8 @@
                         </div>
                     @endif
 
-                    <!-- Layer 2 (z-10): Overlay Gradasi Lembut dari Kiri -->
-                    <div class="absolute inset-0 pointer-events-none z-10 bg-gradient-to-r from-[#FAF9F6] via-[#FAF9F6]/90 to-transparent"></div>
-                    <div class="absolute inset-0 pointer-events-none z-10 bg-gradient-to-t from-[#FAF9F6]/80 via-transparent to-transparent md:hidden"></div>
+                    <!-- Layer 2 (z-10): Overlay Gradasi Vertikal Kuat di Mobile & Horizontal di Desktop -->
+                    <div class="absolute inset-0 pointer-events-none z-10 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6]/90 to-[#FAF9F6]/40 sm:bg-gradient-to-r sm:from-[#FAF9F6] sm:via-[#FAF9F6]/88 sm:to-transparent"></div>
 
                     <!-- Layer 3 (relative z-20): Wadah Konten Teks -->
                     <div class="relative z-20 max-w-7xl mx-auto h-full flex items-center px-5 sm:px-8">
@@ -156,9 +157,8 @@
                     <img src="{{ asset('images/logo/logo-jbz-purwakarta.png') }}" alt="JBZ Purwakarta" class="h-40 w-auto opacity-10 object-contain" loading="eager">
                 </div>
 
-                <!-- Layer 2 (z-10): Overlay Gradasi Lembut dari Kiri -->
-                <div class="absolute inset-0 pointer-events-none z-10 bg-gradient-to-r from-[#FAF9F6] via-[#FAF9F6]/90 to-transparent"></div>
-                <div class="absolute inset-0 pointer-events-none z-10 bg-gradient-to-t from-[#FAF9F6]/80 via-transparent to-transparent md:hidden"></div>
+                <!-- Layer 2 (z-10): Overlay Gradasi Vertikal Kuat di Mobile & Horizontal di Desktop -->
+                <div class="absolute inset-0 pointer-events-none z-10 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6]/90 to-[#FAF9F6]/40 sm:bg-gradient-to-r sm:from-[#FAF9F6] sm:via-[#FAF9F6]/88 sm:to-transparent"></div>
 
                 <!-- Layer 3 (relative z-20): Wadah Konten Teks -->
                 <div class="relative z-20 max-w-7xl mx-auto h-full flex items-center px-5 sm:px-8">
@@ -228,19 +228,19 @@
     </section>
 
     <!-- Strip Statistik Ringkas Lembaga (Tepat di Bawah Hero Slider) -->
-    <section class="border-b border-stone-200/80 bg-white py-6">
+    <section class="border-b border-stone-200/80 bg-white py-6 reveal-up">
         <div class="max-w-7xl mx-auto px-5 sm:px-8">
             <div class="grid grid-cols-3 divide-x divide-stone-200/80 text-center">
                 <div class="px-3 sm:px-6">
-                    <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink">2020</p>
+                    <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink" data-count-target="2020">2020</p>
                     <p class="text-[11px] sm:text-xs uppercase tracking-wider text-jbz-charcoal mt-1">Berdiri di Jabar</p>
                 </div>
                 <div class="px-3 sm:px-6">
-                    <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink">{{ $divisions->count() }}</p>
+                    <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink" data-count-target="{{ $divisions->count() }}">{{ $divisions->count() }}</p>
                     <p class="text-[11px] sm:text-xs uppercase tracking-wider text-jbz-charcoal mt-1">Bidang Aktif</p>
                 </div>
                 <div class="px-3 sm:px-6">
-                    <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink">{{ $programs->count() }}+</p>
+                    <p class="font-serif text-2xl sm:text-3xl font-semibold text-ink" data-count-target="{{ $programs->count() }}" data-count-suffix="+">{{ $programs->count() }}+</p>
                     <p class="text-[11px] sm:text-xs uppercase tracking-wider text-jbz-charcoal mt-1">Program Terdata</p>
                 </div>
             </div>
@@ -252,7 +252,7 @@
     <!-- ================================================================== -->
     <section id="misi" class="py-20 bg-white border-b border-stone-200">
         <div class="max-w-7xl mx-auto px-5 sm:px-8">
-            <div class="grid lg:grid-cols-12 gap-8 pb-12 border-b border-stone-200 items-end">
+            <div class="grid lg:grid-cols-12 gap-8 pb-12 border-b border-stone-200 items-end reveal-up">
                 <div class="lg:col-span-7">
                     <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-amber">01 / Misi & Pilar Gerak</p>
                     <h2 class="font-serif text-3xl sm:text-4xl text-ink mt-2">
@@ -268,7 +268,7 @@
 
             <div class="grid md:grid-cols-2 lg:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-stone-200 border-b border-stone-200">
                 @foreach($divisions as $index => $division)
-                    <div class="py-8 md:px-6 first:md:pl-0 last:md:pr-0 flex flex-col justify-between gap-6 group">
+                    <div class="py-8 md:px-6 first:md:pl-0 last:md:pr-0 flex flex-col justify-between gap-6 group reveal-up reveal-delay-{{ ($index % 5) + 1 }}">
                         <div class="space-y-4">
                             <div class="flex items-center justify-between">
                                 <span class="text-xs font-bold tracking-widest text-stone-400">0{{ $index + 1 }}</span>
@@ -283,8 +283,8 @@
                                 {{ $division->description }}
                             </p>
                         </div>
-                        <a href="#kabinet" class="text-[11px] font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-amber hover:text-jbz-charcoal transition">
-                            Lihat Pengurus
+                        <a href="#kabinet" class="editorial-link inline-block text-[11px] font-bold uppercase tracking-wider text-ink hover:text-jbz-charcoal transition">
+                            Lihat Pengurus &rarr;
                         </a>
                     </div>
                 @endforeach
@@ -297,7 +297,7 @@
     <!-- ================================================================== -->
     <section id="program" class="py-20 bg-paper border-b border-stone-200/80">
         <div class="max-w-7xl mx-auto px-5 sm:px-8 space-y-12">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200/80 pb-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200/80 pb-8 reveal-up">
                 <div>
                     <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-green">02 / Aktivitas & Jejak Aksi</p>
                     <h2 class="font-serif text-3xl sm:text-4xl text-ink mt-2">
@@ -310,7 +310,7 @@
             </div>
 
             <!-- Tombol Filter Interaktif Kategori Program -->
-            <div class="flex flex-wrap items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2 reveal-up reveal-delay-1">
                 <button type="button" onclick="filterPrograms('semua')" class="program-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-ink text-white border border-ink transition-all duration-200" data-filter="semua">Semua</button>
                 <button type="button" onclick="filterPrograms('Lingkungan')" class="program-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-white text-jbz-charcoal border border-stone-300 hover:border-ink hover:text-ink transition-all duration-200" data-filter="Lingkungan">Lingkungan</button>
                 <button type="button" onclick="filterPrograms('Kemanusiaan')" class="program-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-white text-jbz-charcoal border border-stone-300 hover:border-ink hover:text-ink transition-all duration-200" data-filter="Kemanusiaan">Kemanusiaan</button>
@@ -320,7 +320,7 @@
 
             <div id="programs-grid" class="grid md:grid-cols-2 gap-10">
                 @foreach($programs as $program)
-                    <article class="program-card group border border-stone-200/80 bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between" data-pillar="{{ $program->pillar }}">
+                    <article class="program-card group border border-stone-200/80 bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between reveal-up reveal-delay-{{ ($loop->index % 2) + 1 }}" data-pillar="{{ $program->pillar }}">
                         <div>
                             <a href="{{ route('program.show', $program->slug) }}" class="block aspect-[16/10] w-full overflow-hidden bg-stone-100 border-b border-stone-200/80">
                                 @if($program->cover_image)
@@ -357,7 +357,7 @@
                                 </p>
 
                                 <div class="pt-2">
-                                    <a href="{{ route('program.show', $program->slug) }}" class="inline-block text-xs font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-green hover:text-jbz-charcoal transition">
+                                    <a href="{{ route('program.show', $program->slug) }}" class="editorial-link inline-block text-xs font-bold uppercase tracking-wider text-ink hover:text-jbz-charcoal transition">
                                         Lihat Detail Program &rarr;
                                     </a>
                                 </div>
@@ -379,7 +379,7 @@
     <!-- ================================================================== -->
     <section id="publikasi" class="py-20 bg-white border-b border-stone-200/80">
         <div class="max-w-7xl mx-auto px-5 sm:px-8 space-y-12">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200/80 pb-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200/80 pb-8 reveal-up">
                 <div>
                     <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-cyan">03 / Ruang Media & Galeri PDD</p>
                     <h2 class="font-serif text-3xl sm:text-4xl text-ink mt-2">
@@ -393,7 +393,7 @@
 
             <div class="grid md:grid-cols-3 gap-8">
                 @foreach($posts as $post)
-                    <article class="group bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
+                    <article class="group bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between reveal-up reveal-delay-{{ ($loop->index % 3) + 1 }}">
                         <div class="space-y-4">
                             <a href="{{ route('post.show', $post->slug) }}" class="block aspect-[4/3] w-full overflow-hidden bg-stone-100 border-b border-stone-200/80">
                                 @if($post->image_path)
@@ -425,7 +425,7 @@
                                 </p>
 
                                 <div class="pt-1">
-                                    <a href="{{ route('post.show', $post->slug) }}" class="inline-block text-xs font-bold uppercase tracking-wider text-ink underline underline-offset-4 decoration-jbz-cyan hover:text-jbz-charcoal transition">
+                                    <a href="{{ route('post.show', $post->slug) }}" class="editorial-link inline-block text-xs font-bold uppercase tracking-wider text-ink hover:text-jbz-charcoal transition">
                                         Baca Selengkapnya &rarr;
                                     </a>
                                 </div>
@@ -446,7 +446,7 @@
     <!-- ================================================================== -->
     <section id="kabinet" class="py-20 bg-paper border-b border-stone-200/80">
         <div class="max-w-7xl mx-auto px-5 sm:px-8 space-y-12">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200/80 pb-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200/80 pb-8 reveal-up">
                 <div>
                     <p class="text-xs font-bold uppercase tracking-[0.2em] text-jbz-amber">04 / Pengurus Kabinet</p>
                     <h2 class="font-serif text-3xl sm:text-4xl text-ink mt-2">
@@ -459,7 +459,7 @@
             </div>
 
             <!-- Tombol Filter Interaktif Struktur Pengurus -->
-            <div class="flex flex-wrap items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2 reveal-up reveal-delay-1">
                 <button type="button" onclick="filterMembers('semua')" class="member-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-ink text-white border border-ink transition-all duration-200" data-filter="semua">Semua Bidang</button>
                 @foreach($divisions as $div)
                     <button type="button" onclick="filterMembers('{{ $div->id }}')" class="member-filter-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full bg-white text-jbz-charcoal border border-stone-300 hover:border-ink hover:text-ink transition-all duration-200" data-filter="{{ $div->id }}">
@@ -470,7 +470,7 @@
 
             <div id="members-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach($boardMembers as $member)
-                    <div class="member-card group bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between" data-division-id="{{ $member->division_id }}">
+                    <div class="member-card group bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(28,28,26,0.04)] hover:shadow-[0_12px_30px_rgba(28,28,26,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between reveal-up reveal-delay-{{ ($loop->index % 4) + 1 }}" data-division-id="{{ $member->division_id }}">
                         <div>
                             <div class="aspect-[4/4] w-full bg-stone-100 overflow-hidden border-b border-stone-200/80">
                                 @if($member->photo_path)
